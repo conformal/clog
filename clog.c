@@ -99,6 +99,21 @@ clog_warnx(const char *emsg, ...)
 }
 
 __dead void
+clog_fatal(const char *emsg)
+{
+	if (emsg == NULL)
+		logit(LOG_CRIT, "fatal: %s", strerror(errno));
+	else
+		if (errno)
+			logit(LOG_CRIT, "fatal: %s: %s",
+			    emsg, strerror(errno));
+		else
+			logit(LOG_CRIT, "fatal: %s", emsg);
+
+	exit(1);
+}
+
+__dead void
 clog_fatalx(const char *emsg, ...)
 {
 	va_list  ap;
