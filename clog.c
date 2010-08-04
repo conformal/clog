@@ -98,7 +98,7 @@ clog_warnx(const char *emsg, ...)
 	va_end(ap);
 }
 
-void
+__dead void
 clog_fatalx(const char *emsg, ...)
 {
 	va_list  ap;

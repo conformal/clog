@@ -39,6 +39,6 @@ void		 clog_warn(const char *, ...);
 void		 clog_warnx(const char *, ...);
 void		 clog_info(const char *, ...);
 void		 clog_debug(const char *, ...);
-void		 clog_fatalx(const char *, ...);
+__dead void	 clog_fatalx(const char *, ...);
 
 #endif /* CLOG_H */
