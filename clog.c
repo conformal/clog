@@ -1,6 +1,7 @@
 /* $clog$ */
 /*	$OpenBSD: log.c,v 1.8 2007/08/22 21:04:30 ckuethe Exp $ */
 /*
+ * Copyright (c) 2010 Marco Peereboom <marco@peereboom.us>
  * Copyright (c) 2003, 2004 Henning Brauer <henning@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -16,9 +17,114 @@
  * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <clog.h>
+#include "clog.h"
 
-int	 	logdebug;
+extern char		*__progname;
+
+static int		clog_initialized;
+static u_int64_t	clog_ext_mask;
+static u_int32_t	clog_flags;
+static struct timeval	clog_start_of_day;
+
+int
+clog_set_flags(u_int32_t f)
+{
+	if ((f & ~CLOG_F_ALLFLAGS) != 0)
+		return (1);
+
+	clog_flags = f;
+
+	return (0);
+}
+
+void
+clog_set_mask(u_int64_t f)
+{
+	clog_ext_mask = f;
+}
+
+void
+clog_print(int pri, const char *file, const char * func, int line,
+    const char *fmt, va_list ap)
+{
+	const char		*fi = "", *fu = "", *li = "";
+	const char		*fi2 = "", *fu2 = "", *li2 = "";
+	char			li_buf[16], *start = "", *end = "";
+	char			*s = NULL, delta[32];
+	int			got_some = 0;
+	struct timeval		now, elapsed;
+
+	delta[0] = '\0';
+	if ((CLOG_F_TIME & clog_flags) != 0) {
+		if (clog_initialized == 0) {
+			if (gettimeofday(&clog_start_of_day, NULL) != -1)
+				clog_initialized = 1;
+		}
+		if (gettimeofday(&now, NULL) != -1) {
+			timersub(&now, &clog_start_of_day, &elapsed);
+			snprintf(delta, sizeof delta, "%ld.%.6ld: ",
+			    elapsed.tv_sec, elapsed.tv_usec);
+		}
+	}
+
+	if ((CLOG_F_FILE & clog_flags) != 0) {
+		fi = file;
+		fi2 = " ";
+		got_some = 1;
+	}
+	if ((CLOG_F_FUNC & clog_flags) != 0) {
+		fu = func;
+		fu2 = " ";
+	}
+	if ((CLOG_F_LINE & clog_flags) != 0) {
+		snprintf(li_buf, sizeof li_buf, "%d", line);
+		li = li_buf;
+		li2 = " ";
+		got_some = 1;
+	}
+
+	if (got_some) {
+		start = "< ";
+		end = "> ";
+	}
+
+	if (asprintf(&s, "%s%s%s%s%s%s%s%s%s%s\n",
+	    delta, start, fi, fi2, fu, fu2, li, li2, end, fmt) == -1) {
+		/* out of memory */
+		abort();
+	}
+
+	if ((CLOG_F_STDERR & clog_flags) != 0) {
+		vfprintf(stderr, s, ap);
+		fflush(stderr);
+	}
+
+	if ((CLOG_F_SYSLOG & clog_flags) != 0) {
+		if (clog_initialized == 0)
+			openlog(__progname, LOG_PID | LOG_NDELAY | LOG_CONS,
+			    LOG_DAEMON);
+		vsyslog(pri, fmt, ap);
+	}
+
+	free(s);
+}
+
+void
+clog_dbg_internal(int pri, u_int64_t mask, const char *file, const char * func,
+    int line, const char *fmt, ...)
+{
+	va_list			ap;
+
+	if ((mask & clog_ext_mask) == 0 || (clog_flags & CLOG_F_ENABLED) == 0)
+		return;
+
+	va_start(ap, fmt);
+	clog_print(pri, file, func, line, fmt, ap);
+	va_end(ap);
+}
+
+/* old interface */
+int		logdebug;
 int		debugsyslog;
 
 void
@@ -53,8 +159,6 @@ logit(int pri, const char *fmt, ...)
 void
 clog_init(int n_debug)
 {
-	extern char	*__progname;
-
 	logdebug = n_debug;
 
 	if (!logdebug)
