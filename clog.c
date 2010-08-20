@@ -85,7 +85,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	va_list			sap;
 
 	delta[0] = '\0';
-	if ((CLOG_F_TIME & clog_flags) != 0) {
+	if ((CLOG_F_DTIME & clog_flags) != 0) {
 		if (clog_initialized == 0)
 			clog_init_new(0);
 
@@ -100,7 +100,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 		time(&tnow);
 		ts = ctime(&tnow) + 4;
 		ts[12] = '\0';
-		if ((CLOG_F_TIME & clog_flags) == 0)
+		if ((CLOG_F_DTIME & clog_flags) == 0)
 			ts2 = ": ";
 		else
 			ts2 = " ";

@@ -10,7 +10,7 @@ main(int argc, char *argv[])
 	clog_init(1);
 
 	if (clog_set_flags(CLOG_F_FILE | CLOG_F_FUNC | CLOG_F_LINE |
-	    CLOG_F_STDERR | CLOG_F_ENABLED | CLOG_F_TIME))
+	    CLOG_F_STDERR | CLOG_F_ENABLED | CLOG_F_DTIME))
 		errx(1, "can't set clog flags");
 	clog_set_mask(CLOGTEST_F_LEVEL1 | CLOGTEST_F_LEVEL2);
 
@@ -18,7 +18,7 @@ main(int argc, char *argv[])
 	CNDBG(CLOGTEST_F_LEVEL1, "printed moo %s", "meh");
 	CDBG("too %s", "coo");
 
-	if (clog_set_flags(CLOG_F_STDERR | CLOG_F_ENABLED | CLOG_F_TIME | CLOG_F_DATE))
+	if (clog_set_flags(CLOG_F_STDERR | CLOG_F_ENABLED | CLOG_F_DTIME | CLOG_F_DATE))
 		errx(1, "can't clear clog flags");
 
 	CNDBG(1, "moo %s", "meh");
