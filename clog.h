@@ -37,6 +37,7 @@
 #define CLOG_F_FILE	(1<<0)
 #define CLOG_F_FUNC	(1<<1)
 #define CLOG_F_LINE	(1<<2)
+#define CLOG_F_DATE	(1<<27)
 #define CLOG_F_TIME	(1<<28)
 #define CLOG_F_STDERR	(1<<29)
 #define CLOG_F_SYSLOG	(1<<30)
@@ -44,15 +45,30 @@
 
 #define CLOG_F_ALLFLAGS							\
 	(CLOG_F_FILE | CLOG_F_FUNC | CLOG_F_LINE |			\
-	CLOG_F_TIME | CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLED)
+	CLOG_F_DATE | CLOG_F_TIME |					\
+	CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLED)
 
 int	clog_set_flags(u_int32_t);
 void	clog_set_mask(u_int64_t);
-void	clog_dbg_internal(int, u_int64_t, const char *, const char *, int,
+void	clog_dbg_internal(int, int, u_int64_t, const char *, const char *, int,
 	    const char *, ...);
 
-#define CNDBG(a, b...)	do { clog_dbg_internal(LOG_DEBUG, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-#define CDBG(b...)	do { clog_dbg_internal(LOG_DEBUG, -1, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+/* no errno */
+#define CNINFO(a, b...)		do { clog_dbg_internal(LOG_INFO, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CINFO(b...)		do { clog_dbg_internal(LOG_INFO, 0, -1, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNDBG(a, b...)		do { clog_dbg_internal(LOG_DEBUG, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CDBG(b...)		do { clog_dbg_internal(LOG_DEBUG, 0, -1, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+
+/* errno */
+#define CNWARNX(a, b...)	do { clog_dbg_internal(LOG_WARNING, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CWARNX(b...)		do { clog_dbg_internal(LOG_WARNING, 0, -1, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNWARN(a, b...)		do { clog_dbg_internal(LOG_WARNING, 1, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CWARN(b...)		do { clog_dbg_internal(LOG_WARNING, 1, -1, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+
+#define CNFATALX(a, b...)	do { clog_dbg_internal(LOG_CRIT, 0, a, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CFATALX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CNFATAL(a, b...)	do { clog_dbg_internal(LOG_CRIT, 1, a, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CFATAL(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
 
 /* old interface */
 void		 clog_init(int);

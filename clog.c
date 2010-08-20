@@ -26,11 +26,38 @@ static u_int64_t	clog_ext_mask;
 static u_int32_t	clog_flags;
 static struct timeval	clog_start_of_day;
 
+void
+clog_opensyslog(void)
+{
+	openlog(__progname, LOG_PID | LOG_NDELAY | LOG_CONS, LOG_DAEMON);
+}
+
+void
+clog_init_new(int log_syslog)
+{
+	gettimeofday(&clog_start_of_day, NULL);
+
+	if (log_syslog)
+		clog_opensyslog();
+
+	tzset();
+
+	clog_initialized = 1;
+}
+
 int
 clog_set_flags(u_int32_t f)
 {
 	if ((f & ~CLOG_F_ALLFLAGS) != 0)
 		return (1);
+
+	if ((f & CLOG_F_SYSLOG) != (clog_flags & CLOG_F_SYSLOG)) {
+		/* syslog toggle */
+		if ((clog_flags & CLOG_F_SYSLOG))
+			closelog();
+		else
+			clog_opensyslog();
+	}
 
 	clog_flags = f;
 
@@ -44,27 +71,39 @@ clog_set_mask(u_int64_t f)
 }
 
 void
-clog_print(int pri, const char *file, const char * func, int line,
+clog_print(int pri, int do_errno, const char *file, const char * func, int line,
     const char *fmt, va_list ap)
 {
 	const char		*fi = "", *fu = "", *li = "";
 	const char		*fi2 = "", *fu2 = "", *li2 = "";
 	char			li_buf[16], *start = "", *end = "";
-	char			*s = NULL, delta[32];
+	char			*s = NULL, *ts = "", *ts2 = "" , delta[32];
+	char			*sl = NULL, *er = "", *er2 = "";
 	int			got_some = 0;
 	struct timeval		now, elapsed;
+	time_t			tnow;
+	va_list			sap;
 
 	delta[0] = '\0';
 	if ((CLOG_F_TIME & clog_flags) != 0) {
-		if (clog_initialized == 0) {
-			if (gettimeofday(&clog_start_of_day, NULL) != -1)
-				clog_initialized = 1;
-		}
+		if (clog_initialized == 0)
+			clog_init_new(0);
+
 		if (gettimeofday(&now, NULL) != -1) {
 			timersub(&now, &clog_start_of_day, &elapsed);
 			snprintf(delta, sizeof delta, "%ld.%.6ld: ",
 			    elapsed.tv_sec, elapsed.tv_usec);
 		}
+	}
+
+	if ((CLOG_F_DATE & clog_flags) != 0) {
+		time(&tnow);
+		ts = ctime(&tnow) + 4;
+		ts[12] = '\0';
+		if ((CLOG_F_TIME & clog_flags) == 0)
+			ts2 = ": ";
+		else
+			ts2 = " ";
 	}
 
 	if ((CLOG_F_FILE & clog_flags) != 0) {
@@ -88,11 +127,18 @@ clog_print(int pri, const char *file, const char * func, int line,
 		end = "> ";
 	}
 
-	if (asprintf(&s, "%s%s%s%s%s%s%s%s%s%s\n",
-	    delta, start, fi, fi2, fu, fu2, li, li2, end, fmt) == -1) {
+	if (do_errno) {
+		er = ": ";
+		er2 = strerror(errno);
+	}
+
+	if (asprintf(&s, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
+	    ts, ts2, delta, start, fi, fi2, fu, fu2, li, li2, end, fmt, er, er2) == -1) {
 		/* out of memory */
 		abort();
 	}
+
+	va_copy(sap, ap);
 
 	if ((CLOG_F_STDERR & clog_flags) != 0) {
 		vfprintf(stderr, s, ap);
@@ -100,18 +146,23 @@ clog_print(int pri, const char *file, const char * func, int line,
 	}
 
 	if ((CLOG_F_SYSLOG & clog_flags) != 0) {
+		if ((CLOG_F_DATE & clog_flags) != 0)
+			sl = s + 14;
+		else
+			sl = s;
+
 		if (clog_initialized == 0)
-			openlog(__progname, LOG_PID | LOG_NDELAY | LOG_CONS,
-			    LOG_DAEMON);
-		vsyslog(pri, fmt, ap);
+			clog_init_new(1);
+
+		vsyslog(pri, sl, sap);
 	}
 
 	free(s);
 }
 
 void
-clog_dbg_internal(int pri, u_int64_t mask, const char *file, const char * func,
-    int line, const char *fmt, ...)
+clog_dbg_internal(int pri, int do_errno, u_int64_t mask, const char *file,
+    const char * func, int line, const char *fmt, ...)
 {
 	va_list			ap;
 
@@ -119,7 +170,7 @@ clog_dbg_internal(int pri, u_int64_t mask, const char *file, const char * func,
 		return;
 
 	va_start(ap, fmt);
-	clog_print(pri, file, func, line, fmt, ap);
+	clog_print(pri, do_errno, file, func, line, fmt, ap);
 	va_end(ap);
 }
 
@@ -164,8 +215,9 @@ clog_init(int n_debug)
 	if (!logdebug)
 		openlog(__progname, LOG_PID | LOG_NDELAY | LOG_CONS,
 		    LOG_DAEMON);
-
 	tzset();
+
+	clog_init_new(!logdebug); /* initialize new interface too */
 }
 
 void
