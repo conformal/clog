@@ -34,19 +34,20 @@
 #include <sys/stdarg.h>
 #include <sys/socket.h>
 
-#define CLOG_F_FILE	(1<<0)
-#define CLOG_F_FUNC	(1<<1)
-#define CLOG_F_LINE	(1<<2)
-#define CLOG_F_DATE	(1<<27)
-#define CLOG_F_DTIME	(1<<28)
-#define CLOG_F_STDERR	(1<<29)
-#define CLOG_F_SYSLOG	(1<<30)
-#define CLOG_F_ENABLED	(1<<31)
+#define CLOG_F_FILE		(1<<0)
+#define CLOG_F_FUNC		(1<<1)
+#define CLOG_F_LINE		(1<<2)
+#define CLOG_F_DATE		(1<<26)
+#define CLOG_F_DTIME		(1<<27)
+#define CLOG_F_STDERR		(1<<28)
+#define CLOG_F_SYSLOG		(1<<29)
+#define CLOG_F_ENABLE		(1<<30)
+#define CLOG_F_DBGENABLE	(1<<31)
 
 #define CLOG_F_ALLFLAGS							\
 	(CLOG_F_FILE | CLOG_F_FUNC | CLOG_F_LINE |			\
 	CLOG_F_DATE | CLOG_F_DTIME |					\
-	CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLED)
+	CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLE | CLOG_F_DBGENABLE)
 
 int	clog_set_flags(u_int32_t);
 void	clog_set_mask(u_int64_t);

@@ -8,7 +8,7 @@ SRCS= clog.c
 DEBUG+= -ggdb3 
 CFLAGS+= -Wall -Werror
 HDRS= clog.h
-NOMAN=
+MAN= clog.3
 
 includes:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \

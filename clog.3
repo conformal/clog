@@ -1,0 +1,128 @@
+.\" $clog$
+.\"
+.\" Copyright (c) 2010 Marco Peereboom <marco@peereboom.us>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate$
+.Dt CLOG 3
+.Os
+.Sh NAME
+.Nm clog
+.Nd Copious Logger
+.Sh SYNOPSIS
+.Fd #include <clog.h>
+.Ft void
+.Fn clog_init "int no_syslog"
+.Ft int
+.Fn clog_set_flags "u_int32_t flags"
+.Ft void
+.Fn clog_set_mask "u_int64_t mask"
+.Ft void
+.Fn CNINFO "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CINFO "const char *format" "..."
+.Ft void
+.Fn CNDBG "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CDBG "const char *format" "..."
+.Ft void
+.Fn CNWARNX "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CWARNX "const char *format" "..."
+.Ft void
+.Fn CNWARN "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CWARN "const char *format" "..."
+.Ft void
+.Fn CNFATALX "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CFATALX "const char *format" "..."
+.Ft void
+.Fn CNFATAL "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CFATAL "const char *format" "..."
+.Sh DESCRIPTION
+.Fn clog_init
+prepares the library for first use.
+This function should be called before any other function is called.
+.Pp
+.Fn clog_set_flags
+sets the operational flags for
+.Nm .
+Possible values are:
+.Bl -tag -width "CLOG_F_ENABLED" -offset indent -compact
+.It Cm CLOG_F_FILE
+Log source file name.
+.It Cm CLOG_F_FUNC
+Log source function.
+.It Cm CLOG_F_LINE
+Log source line number.
+.It Cm CLOG_F_DATE
+Log date in
+.Xr ctime 3
+format.
+.It Cm CLOG_F_DTIME
+Log delta time from previous log function invocation.
+This time delta has micro second resolution.
+.It Cm CLOG_F_STDERR
+Log to
+.Fa stderr .
+.It Cm CLOG_F_SYSLOG
+Log to
+.Xr syslog 3 .
+Note that
+.Xr syslog 3
+always prepends the
+.Xr ctime 3
+date.
+Currently all
+.Nm
+output goes to
+.Fa LOG_DAEMON .
+.It Cm CLOG_F_ENABLED
+Enable logging.
+.El
+.Pp
+Only supported flags can be set and this function will return 0 on success and
+1 on failure.
+.Pp
+.Fn clog_set_mask
+sets external debug mask.
+The debug mask must be a bitfield and must be defined by the caller.
+It is used to control what to log and what to skip.
+.Pp
+All logging functions use the format as defined by
+.Xr printf 3 .
+The
+.Fa N
+in the name of the logging functions designates the use of a mask.
+.Pp
+.Fn CNINFO
+and
+.Fn CINFO
+log an informational message.
+If logging is enabled and not masked the provided message will always be logged.
+.Pp
+.Fn CNDBG
+.Fn CDBG
+.Pp
+.Sh SEE ALSO
+.Xr printf 3
+.Xr ctime 3
+.Xr syslog 3
+.Sh HISTORY
+.An -nosplit
+.Nm
+was written by
+.An Marco Peereboom Aq marco@peereboom.us

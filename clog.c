@@ -33,7 +33,7 @@ clog_opensyslog(void)
 }
 
 void
-clog_init_new(int log_syslog)
+clog_initialize(int log_syslog)
 {
 	gettimeofday(&clog_start_of_day, NULL);
 
@@ -87,7 +87,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	delta[0] = '\0';
 	if ((CLOG_F_DTIME & clog_flags) != 0) {
 		if (clog_initialized == 0)
-			clog_init_new(0);
+			clog_initialize(0);
 
 		if (gettimeofday(&now, NULL) != -1) {
 			timersub(&now, &clog_start_of_day, &elapsed);
@@ -152,7 +152,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 			sl = s;
 
 		if (clog_initialized == 0)
-			clog_init_new(1);
+			clog_initialize(1);
 
 		vsyslog(pri, sl, sap);
 	}
@@ -166,7 +166,9 @@ clog_dbg_internal(int pri, int do_errno, u_int64_t mask, const char *file,
 {
 	va_list			ap;
 
-	if ((mask & clog_ext_mask) == 0 || (clog_flags & CLOG_F_ENABLED) == 0)
+	if ((mask & clog_ext_mask) == 0 || (clog_flags & CLOG_F_ENABLE) == 0)
+		return;
+	if (pri == LOG_DEBUG && !(clog_flags & CLOG_F_DBGENABLE))
 		return;
 
 	va_start(ap, fmt);
@@ -217,7 +219,7 @@ clog_init(int n_debug)
 		    LOG_DAEMON);
 	tzset();
 
-	clog_init_new(!logdebug); /* initialize new interface too */
+	clog_initialize(!logdebug); /* initialize new interface too */
 }
 
 void
