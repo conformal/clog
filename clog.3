@@ -65,9 +65,9 @@ Possible values are:
 .It Cm CLOG_F_FILE
 Log source file name.
 .It Cm CLOG_F_FUNC
-Log source function.
+Log source function name.
 .It Cm CLOG_F_LINE
-Log source line number.
+Log source file line number.
 .It Cm CLOG_F_DATE
 Log date in
 .Xr ctime 3
@@ -92,6 +92,8 @@ output goes to
 .Fa LOG_DAEMON .
 .It Cm CLOG_F_ENABLED
 Enable logging.
+.It Cm CLOG_F_DBGENABLE
+Enable debug logging.
 .El
 .Pp
 Only supported flags can be set and this function will return 0 on success and
@@ -116,11 +118,46 @@ If logging is enabled and not masked the provided message will always be logged.
 .Pp
 .Fn CNDBG
 .Fn CDBG
+log a debug message.  Both
+.Fa CLOG_F_ENABLED
+and 
+.Fa CLOG_F_DBGENABLE
+must be set for the message to be logged.
+.Pp
+.Fn CNWARNX
+.Fn CWARNX
+.Fn CNWARN
+.Fn CWARN
+are functionally equivalent to the
+.Xr warn 3
+functions.
+The functions with an
+.Fa X
+in their name suppress
+.Xr strerror 3
+output.
+.Pp
+.Fn CNFATALX
+.Fn CFATALX
+.Fn CNFATAL
+.Fn CFATAL
+are functionally equivalent to the
+.Xr err 3
+functions.
+The functions with an
+.Fa X
+in their name suppress
+.Xr strerror 3
+output.
+These functions will terminate the program using
+.Xr exit 3
+with a return value of 1.
 .Pp
 .Sh SEE ALSO
 .Xr printf 3
 .Xr ctime 3
 .Xr syslog 3
+.Xr err 3
 .Sh HISTORY
 .An -nosplit
 .Nm
