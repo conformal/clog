@@ -35,6 +35,7 @@ clog_opensyslog(void)
 void
 clog_initialize(int log_syslog)
 {
+	clog_ext_mask = 1llu<<63;
 	gettimeofday(&clog_start_of_day, NULL);
 
 	if (log_syslog)
