@@ -16,6 +16,21 @@ CFLAGS+= -ggdb3
 
 MAN= clog.3
 MANDIR= ${PREFIX}/man/cat
+MLINKS+=clog.3 clog_init.3
+MLINKS+=clog.3 clog_set_flags.3
+MLINKS+=clog.3 clog_set_mask.3
+MLINKS+=clog.3 CNINFO.3
+MLINKS+=clog.3 CINFO.3
+MLINKS+=clog.3 CNDBG.3
+MLINKS+=clog.3 CDBG.3
+MLINKS+=clog.3 CNWARNX.3
+MLINKS+=clog.3 CWARNX.3
+MLINKS+=clog.3 CNWARN.3
+MLINKS+=clog.3 CWARN.3
+MLINKS+=clog.3 CNFATALX.3
+MLINKS+=clog.3 CFATALX.3
+MLINKS+=clog.3 CNFATAL.3
+MLINKS+=clog.3 CFATAL.3
 HDRS= clog.h
 
 includes:
