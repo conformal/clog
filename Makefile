@@ -22,7 +22,9 @@ includes:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
 	cmp -s $$i ${PREFIX}/include/$$i || \
 	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i \
-	${PREFIX}/include; done
+	${PREFIX}/include; \
+	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i; \
+	done
 
 .include <bsd.own.mk>
 .include <bsd.lib.mk>
