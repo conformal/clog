@@ -68,7 +68,7 @@ clog_set_flags(u_int32_t f)
 void
 clog_set_mask(u_int64_t f)
 {
-	clog_ext_mask = f;
+	clog_ext_mask = f | (1llu<<63);
 }
 
 void
