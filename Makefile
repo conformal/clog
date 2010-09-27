@@ -13,6 +13,7 @@ CFLAGS+= -fdiagnostics-show-option -Wall -Werror
 CFLAGS+= -Wall -Werror
 .endif
 CFLAGS+= -ggdb3
+CPPFLAGS+=-I${.CURDIR}
 
 MAN= clog.3
 MANDIR= ${PREFIX}/man/cat
@@ -33,7 +34,7 @@ MLINKS+=clog.3 CNFATAL.3
 MLINKS+=clog.3 CFATAL.3
 HDRS= clog.h
 
-includes:
+afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
 	cmp -s $$i ${PREFIX}/include/$$i || \
 	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${PREFIX}/include; \
