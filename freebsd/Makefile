@@ -31,13 +31,13 @@
 PREFIX?=/usr/local
 #BINDIR=${DESTDIR}${PREFIX}/bin
 #LIBDIR=${DESTDIR}${PREFIX}/lib
+LIBDIR?= ${PREFIX}/lib
 
 .include <${.CURDIR}/../shlib_version>
 VPATH=${.CURDIR}/..
 SHLIB_MAJOR=${major}
 
 LIB= clog
-SHLIBDIR?= ${PREFIX}/lib
 MAN= ../clog.3
 MANDIR= ${PREFIX}/man/cat
 MLINKS+=clog.3 clog_init.3
