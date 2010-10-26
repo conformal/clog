@@ -39,7 +39,7 @@ SHLIB_MAJOR=${major}
 
 LIB= clog
 MAN= ../clog.3
-MANDIR= ${PREFIX}/man/cat
+MANDIR= ${PREFIX}/man/man
 MLINKS+=clog.3 clog_init.3
 MLINKS+=clog.3 clog_set_flags.3
 MLINKS+=clog.3 clog_set_mask.3
