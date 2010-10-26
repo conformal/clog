@@ -34,6 +34,8 @@
 
 #include <sys/socket.h>
 
+#include "lens.h"
+
 #define CLOG_F_FILE		(1<<0)
 #define CLOG_F_FUNC		(1<<1)
 #define CLOG_F_LINE		(1<<2)
