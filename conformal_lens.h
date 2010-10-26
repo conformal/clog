@@ -15,9 +15,12 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifdef __FreeBSD__
-#include <sys/time.h>
+/*
+ * This file contains ifdefs and #defines to bring the OS into focus
+ * so that the source can build on any supported platform.
+ */
 
+#ifdef __FreeBSD__
 #define SA_LEN(x)      ((x)->sa_len)
 #define __dead __dead2
 #endif /* __FreeBSD__ */

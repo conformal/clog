@@ -39,6 +39,7 @@ SHLIB_MAJOR=${major}
 
 LIB= clog
 MAN= ../clog.3
+HDRS= clog.h conformal_lens.h
 MANDIR= ${PREFIX}/man/man
 MLINKS+=clog.3 clog_init.3
 MLINKS+=clog.3 clog_set_flags.3
@@ -63,5 +64,12 @@ CPPFLAGS+=-I${.CURDIR}
 CLEANFILES+= clog.c clog.h clog.3
 
 SRCS= clog.c
+
+afterinstall:
+	@cd ${.CURDIR}; for i in ${HDRS}; do \
+	cmp -s ../$$i ${DESTDIR}${PREFIX}/include/$$i || \
+	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${DESTDIR}${PREFIX}/include; \
+	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${DESTDIR}${PREFIX}/include;\
+	done
 
 .include <bsd.lib.mk>

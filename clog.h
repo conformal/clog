@@ -33,8 +33,9 @@
 #include <stdarg.h>
 
 #include <sys/socket.h>
+#include <sys/time.h>
 
-#include "lens.h"
+#include "conformal_lens.h"
 
 #define CLOG_F_FILE		(1<<0)
 #define CLOG_F_FUNC		(1<<1)
