@@ -30,8 +30,8 @@
 #include <netdb.h>
 #include <syslog.h>
 #include <errno.h>
+#include <stdarg.h>
 
-#include <sys/stdarg.h>
 #include <sys/socket.h>
 
 #define CLOG_F_FILE		(1<<0)
