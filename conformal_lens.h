@@ -23,4 +23,7 @@
 #ifdef __FreeBSD__
 #define SA_LEN(x)      ((x)->sa_len)
 #define __dead __dead2
+
+#define NEED_ARC4RANDOM_BUF
+void arc4random_buf(void *buf, size_t nbytes);
 #endif /* __FreeBSD__ */
