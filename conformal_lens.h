@@ -26,4 +26,6 @@
 
 #define NEED_ARC4RANDOM_BUF
 void arc4random_buf(void *buf, size_t nbytes);
+#define NEED_STRNVIS
+int strnvis(char *dst, const char *src, size_t siz, int flag);
 #endif /* __FreeBSD__ */
