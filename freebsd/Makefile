@@ -34,7 +34,7 @@ PREFIX?=/usr/local
 LIBDIR?= ${PREFIX}/lib
 
 .include <${.CURDIR}/../shlib_version>
-VPATH=${.CURDIR}/..
+.PATH: ${.CURDIR}/..
 SHLIB_MAJOR=${major}
 
 LIB= clog
