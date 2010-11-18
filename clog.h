@@ -52,9 +52,9 @@
 	CLOG_F_DATE | CLOG_F_DTIME |					\
 	CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLE | CLOG_F_DBGENABLE)
 
-int	clog_set_flags(u_int32_t);
-void	clog_set_mask(u_int64_t);
-void	clog_dbg_internal(int, int, u_int64_t, const char *, const char *, int,
+int	clog_set_flags(uint32_t);
+void	clog_set_mask(uint64_t);
+void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
 	    const char *, ...);
 
 /* no errno */

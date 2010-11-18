@@ -22,8 +22,8 @@
 extern char		*__progname;
 
 static int		clog_initialized;
-static u_int64_t	clog_ext_mask;
-static u_int32_t	clog_flags;
+static uint64_t	clog_ext_mask;
+static uint32_t	clog_flags;
 static struct timeval	clog_start_of_day;
 
 void
@@ -47,7 +47,7 @@ clog_initialize(int log_syslog)
 }
 
 int
-clog_set_flags(u_int32_t f)
+clog_set_flags(uint32_t f)
 {
 	if ((f & ~CLOG_F_ALLFLAGS) != 0)
 		return (1);
@@ -66,7 +66,7 @@ clog_set_flags(u_int32_t f)
 }
 
 void
-clog_set_mask(u_int64_t f)
+clog_set_mask(uint64_t f)
 {
 	clog_ext_mask = f | (1llu<<63);
 }
@@ -162,7 +162,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 }
 
 void
-clog_dbg_internal(int pri, int do_errno, u_int64_t mask, const char *file,
+clog_dbg_internal(int pri, int do_errno, uint64_t mask, const char *file,
     const char * func, int line, const char *fmt, ...)
 {
 	va_list			ap;
