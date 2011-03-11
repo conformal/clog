@@ -1,8 +1,8 @@
 # $clog$
 
-PREFIX?=/usr/local
-BINDIR=${PREFIX}/bin
-LIBDIR=${PREFIX}/lib
+LOCALBASE?=/usr/local
+BINDIR=${LOCALBASE}/bin
+LIBDIR=${LOCALBASE}/lib
 
 #WANTLINT=
 LIB= clog
@@ -16,7 +16,7 @@ CFLAGS+= -ggdb3
 CPPFLAGS+=-I${.CURDIR}
 
 MAN= clog.3
-MANDIR= ${PREFIX}/man/cat
+MANDIR= ${LOCALBASE}/man/cat
 MLINKS+=clog.3 clog_init.3
 MLINKS+=clog.3 clog_set_flags.3
 MLINKS+=clog.3 clog_set_mask.3
@@ -36,9 +36,9 @@ HDRS= clog.h conformal_lens.h
 
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
-	cmp -s $$i ${PREFIX}/include/$$i || \
-	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${PREFIX}/include; \
-	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${PREFIX}/include;\
+	cmp -s $$i ${LOCALBASE}/include/$$i || \
+	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${LOCALBASE}/include; \
+	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${LOCALBASE}/include;\
 	done
 
 .include <bsd.own.mk>
