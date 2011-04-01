@@ -22,7 +22,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <err.h>
 #include <unistd.h>
 #include <signal.h>
 #include <pwd.h>
