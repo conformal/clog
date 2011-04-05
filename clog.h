@@ -24,8 +24,6 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <signal.h>
-#include <pwd.h>
-#include <regex.h>
 #include <netdb.h>
 #include <syslog.h>
 #include <errno.h>
