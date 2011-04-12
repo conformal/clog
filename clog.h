@@ -18,6 +18,8 @@
 #ifndef CLOG_H
 #define CLOG_H
 
+#include <conformal_lens.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,8 +33,6 @@
 
 #include <sys/socket.h>
 #include <sys/time.h>
-
-#include "conformal_lens.h"
 
 #define CLOG_F_FILE		(1<<0)
 #define CLOG_F_FUNC		(1<<1)
