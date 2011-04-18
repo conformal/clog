@@ -18,7 +18,7 @@
 #ifndef CLOG_H
 #define CLOG_H
 
-#include <conformal_lens.h>
+#include <clens.h>
 
 #include <stdio.h>
 #include <stdlib.h>

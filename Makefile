@@ -3,6 +3,7 @@
 LOCALBASE?=/usr/local
 BINDIR=${LOCALBASE}/bin
 LIBDIR=${LOCALBASE}/lib
+INCDIR=${LOCALBASE}/include
 
 #WANTLINT=
 LIB= clog
@@ -12,8 +13,8 @@ CFLAGS+= -fdiagnostics-show-option -Wall -Werror
 .else
 CFLAGS+= -Wall -Werror
 .endif
-CFLAGS+= -ggdb3
-CPPFLAGS+=-I${.CURDIR}
+CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+LDADD+= -L${LIBDIR} -lclens
 
 MAN= clog.3
 MANDIR= ${LOCALBASE}/man/cat
