@@ -32,6 +32,7 @@ PREFIX?=/usr/local
 #BINDIR=${DESTDIR}${PREFIX}/bin
 #LIBDIR=${DESTDIR}${PREFIX}/lib
 LIBDIR?= ${PREFIX}/lib
+INCDIR?= ${PREFIX}/include
 
 .include <${.CURDIR}/../shlib_version>
 .PATH: ${.CURDIR}/..
@@ -58,8 +59,8 @@ MLINKS+=clog.3 CNFATAL.3
 MLINKS+=clog.3 CFATAL.3
 
 CFLAGS+= -fdiagnostics-show-option -Wall -Werror
-CFLAGS+= -ggdb3
-CPPFLAGS+=-I${.CURDIR}
+CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+LDADD+= -L ${LIBDIR} -lclens
 
 CLEANFILES+= clog.c clog.h clog.3
 
@@ -67,9 +68,9 @@ SRCS= clog.c
 
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
-	cmp -s ../$$i ${DESTDIR}${PREFIX}/include/$$i || \
-	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${DESTDIR}${PREFIX}/include; \
-	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${DESTDIR}${PREFIX}/include;\
+	cmp -s ../$$i ${INCDIR}/$$i || \
+	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${INCDIR}/; \
+	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) ../$$i ${INCDIR};\
 	done
 
 .include <bsd.lib.mk>
