@@ -40,7 +40,7 @@ SHLIB_MAJOR=${major}
 
 LIB= clog
 MAN= ../clog.3
-HDRS= clog.h conformal_lens.h
+HDRS= clog.h
 MANDIR= ${PREFIX}/man/man
 MLINKS+=clog.3 clog_init.3
 MLINKS+=clog.3 clog_set_flags.3

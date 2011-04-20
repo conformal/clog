@@ -33,7 +33,7 @@ MLINKS+=clog.3 CNFATALX.3
 MLINKS+=clog.3 CFATALX.3
 MLINKS+=clog.3 CNFATAL.3
 MLINKS+=clog.3 CFATAL.3
-HDRS= clog.h conformal_lens.h
+HDRS= clog.h
 
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
