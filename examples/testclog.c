@@ -34,7 +34,7 @@ main(int argc, char *argv[])
 	CWARN("OMG WARNING with errno");
 	CNFATAL(CLOGTEST_F_LEVEL3, "OMG FATAL");
 
-	/* not reached despite not being pinted */
+	/* not reached */
 	CWARNX("OMG WARNING not reached");
 
 	return (0);
