@@ -58,9 +58,9 @@ MLINKS+=clog.3 CFATALX.3
 MLINKS+=clog.3 CNFATAL.3
 MLINKS+=clog.3 CFATAL.3
 
-CPPFLAGS += -DNEED_LIBCLENS
 CFLAGS+= -fdiagnostics-show-option -Wall -Werror
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+CFLAGS+= -DNEED_LIBCLENS
 LDADD+= -L ${LIBDIR} -lclens
 
 CLEANFILES+= clog.c clog.h clog.3
