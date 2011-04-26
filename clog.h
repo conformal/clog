@@ -18,7 +18,7 @@
 #ifndef CLOG_H
 #define CLOG_H
 
-#ifndef NO_LIBCLENS
+#ifdef NEED_LIBCLENS
 #include <clens.h>
 #endif
 

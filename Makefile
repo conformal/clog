@@ -8,7 +8,6 @@ INCDIR=${LOCALBASE}/include
 #WANTLINT=
 LIB= clog
 SRCS= clog.c
-CPPFLAGS += -DNO_LIBCLENS
 .if defined(${COMPILER_VERSION})  &&  ${COMPILER_VERSION:L} == "gcc4"
 CFLAGS+= -fdiagnostics-show-option -Wall -Werror
 .else
