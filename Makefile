@@ -8,13 +8,14 @@ INCDIR=${LOCALBASE}/include
 #WANTLINT=
 LIB= clog
 SRCS= clog.c
+CPPFLAGS += -DNO_LIBCLENS
 .if defined(${COMPILER_VERSION})  &&  ${COMPILER_VERSION:L} == "gcc4"
 CFLAGS+= -fdiagnostics-show-option -Wall -Werror
 .else
 CFLAGS+= -Wall -Werror
 .endif
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
-LDADD+= -L${LIBDIR} -lclens
+LDADD+= 
 
 MAN= clog.3
 MANDIR= ${LOCALBASE}/man/cat
