@@ -42,5 +42,16 @@ afterinstall:
 	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${LOCALBASE}/include;\
 	done
 
+uninstall:
+	@for i in $(HDRS); do \
+	echo rm -f ${INCDIR}/$$i ;\
+	rm -f ${INCDIR}/$$i; \
+	done
+	@for i in $(_LIBS); do \
+	echo rm -f ${LIBDIR}/$$i ;\
+	rm -f ${LIBDIR}/$$i; \
+	done
+# XXX: Remove man pages
+
 .include <bsd.own.mk>
 .include <bsd.lib.mk>
