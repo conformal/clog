@@ -1,9 +1,9 @@
 # $clog$
 
 LOCALBASE?=/usr/local
-BINDIR=${LOCALBASE}/bin
-LIBDIR=${LOCALBASE}/lib
-INCDIR=${LOCALBASE}/include
+BINDIR?=${LOCALBASE}/bin
+LIBDIR?=${LOCALBASE}/lib
+INCDIR?=${LOCALBASE}/include
 
 #WANTLINT=
 LIB= clog
