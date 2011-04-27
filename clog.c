@@ -19,6 +19,8 @@
 
 #include "clog.h"
 
+#include <time.h>
+
 extern char		*__progname;
 
 static int		clog_initialized;
