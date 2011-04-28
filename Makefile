@@ -1,5 +1,10 @@
 # $clog$
 
+SYSTEM != uname -s
+.if exists(${.CURDIR}/config/Makefile.$(SYSTEM:L))
+.  include "${.CURDIR}/config/Makefile.$(SYSTEM:L)"
+.endif
+
 LOCALBASE?=/usr/local
 BINDIR?=${LOCALBASE}/bin
 LIBDIR?=${LOCALBASE}/lib
@@ -8,16 +13,8 @@ INCDIR?=${LOCALBASE}/include
 #WANTLINT=
 LIB= clog
 SRCS= clog.c
-.if defined(${COMPILER_VERSION})  &&  ${COMPILER_VERSION:L} == "gcc4"
-CFLAGS+= -fdiagnostics-show-option -Wall -Werror
-.else
-CFLAGS+= -Wall -Werror
-.endif
-CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
-LDADD+= 
-
+HDRS= clog.h
 MAN= clog.3
-MANDIR= ${LOCALBASE}/man/cat
 MLINKS+=clog.3 clog_init.3
 MLINKS+=clog.3 clog_set_flags.3
 MLINKS+=clog.3 clog_set_mask.3
@@ -33,7 +30,10 @@ MLINKS+=clog.3 CNFATALX.3
 MLINKS+=clog.3 CFATALX.3
 MLINKS+=clog.3 CNFATAL.3
 MLINKS+=clog.3 CFATAL.3
-HDRS= clog.h
+
+CFLAGS+= -Wall -Werror
+CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+#LDADD+= 
 
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
@@ -47,6 +47,7 @@ uninstall:
 	echo rm -f ${INCDIR}/$$i ;\
 	rm -f ${INCDIR}/$$i; \
 	done
+
 	@for i in $(_LIBS); do \
 	echo rm -f ${LIBDIR}/$$i ;\
 	rm -f ${LIBDIR}/$$i; \
