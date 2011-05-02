@@ -1,5 +1,7 @@
 #include "clog.h"
 
+#include <err.h>
+
 #define CLOGTEST_F_LEVEL1	(1<<0)
 #define CLOGTEST_F_LEVEL2	(1<<1)
 #define CLOGTEST_F_LEVEL3	(1<<2) /* not printed */
