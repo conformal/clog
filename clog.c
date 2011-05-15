@@ -78,10 +78,10 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
     const char *fmt, va_list ap)
 {
 	const char		*fi = "", *fu = "", *li = "";
-	const char		*fi2 = "", *fu2 = "", *li2 = "";
+	const char		*pi2 = "", *fi2 = "", *fu2 = "", *li2 = "";
 	char			li_buf[16], *start = "", *end = "";
 	char			*s = NULL, *ts = "", *ts2 = "" , delta[32];
-	char			*sl = NULL, *er = "", *er2 = "";
+	char			*sl = NULL, *er = "", *er2 = "", *pi = "";
 	int			got_some = 0;
 	struct timeval		now, elapsed;
 	time_t			tnow;
@@ -107,6 +107,15 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 			ts2 = ": ";
 		else
 			ts2 = " ";
+	}
+
+	if ((CLOG_F_PID & clog_flags) != 0) {
+		if (asprintf(&pi, "%s(%d)", __progname, getpid()) != -1) {
+			pi2 = " ";
+			got_some = 1;
+		} else {
+			pi = "";
+		}
 	}
 
 	if ((CLOG_F_FILE & clog_flags) != 0) {
@@ -135,8 +144,9 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 		er2 = strerror(errno);
 	}
 
-	if (asprintf(&s, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
-	    ts, ts2, delta, start, fi, fi2, fu, fu2, li, li2, end, fmt, er, er2) == -1) {
+	if (asprintf(&s, "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
+	    ts, ts2, delta, start, pi, pi2, fi, fi2, fu, fu2,
+	    li, li2, end, fmt, er, er2) == -1) {
 		/* out of memory */
 		abort();
 	}
