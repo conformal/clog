@@ -82,7 +82,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	char			li_buf[16], *start = "", *end = "";
 	char			*s = NULL, *ts = "", *ts2 = "" , delta[32];
 	char			*sl = NULL, *er = "", *er2 = "", *pi = "";
-	int			got_some = 0;
+	int			got_some = 0, free_pi = 0;
 	struct timeval		now, elapsed;
 	time_t			tnow;
 	va_list			sap;
@@ -113,6 +113,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 		if (asprintf(&pi, "%s(%d)", __progname, getpid()) != -1) {
 			pi2 = " ";
 			got_some = 1;
+			free_pi = 1;
 		} else {
 			pi = "";
 		}
@@ -171,6 +172,8 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	}
 
 	free(s);
+	if (free_pi)
+		free(pi);
 }
 
 void
