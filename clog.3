@@ -52,6 +52,14 @@
 .Fn CNFATAL "u_int64_t mask" "const char *format" "..."
 .Ft void
 .Fn CFATAL "const char *format" "..."
+.Ft void
+.Fn CNABORTX "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CABORTX "const char *format" "..."
+.Ft void
+.Fn CNABORT "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CABORT "const char *format" "..."
 .Sh DESCRIPTION
 .Fn clog_init
 prepares the library for first use.
@@ -152,6 +160,21 @@ output.
 These functions will terminate the program using
 .Xr exit 3
 with a return value of 1.
+.Pp
+.Fn CNABORTX
+.Fn CABORTX
+.Fn CNABORT
+.Fn CABORT
+are functionally similar to the
+.Xr err 3
+functions.
+The functions with an
+.Fa X
+in their name suppress
+.Xr strerror 3
+output.
+These functions will terminate the program using
+.Xr abort 3 .
 .Pp
 .Sh SEE ALSO
 .Xr printf 3

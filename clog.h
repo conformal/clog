@@ -72,6 +72,10 @@ void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
 #define CFATALX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
 #define CNFATAL(a, b...)	do { clog_dbg_internal(LOG_CRIT, 1, a, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
 #define CFATAL(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CNABORTX(a, b...)	do { clog_dbg_internal(LOG_CRIT, 0, a, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
+#define CABORTX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
+#define CNABORT(a, b...)	do { clog_dbg_internal(LOG_CRIT, 1, a, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
+#define CABORT(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
 
 /* old interface */
 void		 clog_init(int);
