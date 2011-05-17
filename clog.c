@@ -127,6 +127,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	if ((CLOG_F_FUNC & clog_flags) != 0) {
 		fu = func;
 		fu2 = " ";
+		got_some = 1;
 	}
 	if ((CLOG_F_LINE & clog_flags) != 0) {
 		snprintf(li_buf, sizeof li_buf, "%d", line);
