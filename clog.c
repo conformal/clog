@@ -95,7 +95,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 		if (gettimeofday(&now, NULL) != -1) {
 			timersub(&now, &clog_start_of_day, &elapsed);
 			snprintf(delta, sizeof delta, "%ld.%.6ld: ",
-			    elapsed.tv_sec, elapsed.tv_usec);
+			    (long) elapsed.tv_sec, (long) elapsed.tv_usec);
 		}
 	}
 
