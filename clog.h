@@ -36,6 +36,15 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 
+/* versioning */
+#define CLOG_VERSION_MAJOR	0
+#define CLOG_VERSION_MINOR	3
+#define CLOG_VERSION_PATCH	2
+#define CLOG_VERSION		"0.3.2"
+
+void	clog_version(int *major, int *minor, int *patch);
+
+
 #define CLOG_F_FILE		(1<<0)
 #define CLOG_F_FUNC		(1<<1)
 #define CLOG_F_LINE		(1<<2)

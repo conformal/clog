@@ -22,12 +22,26 @@
 #include <inttypes.h>
 #include <time.h>
 
+static const char *cvstag = "$clog$";
+static const char *vertag = "version: " CLOG_VERSION;
+
 extern char		*__progname;
 
 static int		clog_initialized;
 static uint64_t		clog_ext_mask;
 static uint32_t		clog_flags;
 static struct timeval	clog_start_of_day;
+
+void
+clog_version(int *major, int *minor, int *patch)
+{
+	*major = CLOG_VERSION_MAJOR;
+	*minor = CLOG_VERSION_MINOR;
+	*patch = CLOG_VERSION_PATCH;
+	/* Portable way to avoid unused variable compile warnings */
+	(void) (cvstag);
+	(void) (vertag);
+}
 
 void
 clog_opensyslog(void)
