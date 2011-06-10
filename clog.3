@@ -23,6 +23,8 @@
 .Sh SYNOPSIS
 .Fd #include <clog.h>
 .Ft void
+.Fn clog_version "int *major" "int *minor" "int *patch"
+.Ft void
 .Fn clog_init "int no_syslog"
 .Ft int
 .Fn clog_set_flags "u_int32_t flags"
@@ -61,6 +63,9 @@
 .Ft void
 .Fn CABORT "const char *format" "..."
 .Sh DESCRIPTION
+.Fn clog_version
+gets the current version of the library at run time.
+.Pp
 .Fn clog_init
 prepares the library for first use.
 This function should be called before any other function is called.
