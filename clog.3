@@ -23,13 +23,13 @@
 .Sh SYNOPSIS
 .Fd #include <clog.h>
 .Ft void
-.Fn clog_version "int *major" "int *minor" "int *patch"
-.Ft void
 .Fn clog_init "int no_syslog"
 .Ft int
 .Fn clog_set_flags "u_int32_t flags"
 .Ft void
 .Fn clog_set_mask "u_int64_t mask"
+.Ft void
+.Fn clog_version "int *major" "int *minor" "int *patch"
 .Ft void
 .Fn CNINFO "u_int64_t mask" "const char *format" "..."
 .Ft void
@@ -63,9 +63,6 @@
 .Ft void
 .Fn CABORT "const char *format" "..."
 .Sh DESCRIPTION
-.Fn clog_version
-gets the current version of the library at run time.
-.Pp
 .Fn clog_init
 prepares the library for first use.
 This function should be called before any other function is called.
@@ -118,6 +115,9 @@ Only supported flags can be set and this function will return 0 on success and
 sets external debug mask.
 The debug mask must be a bitfield and must be defined by the caller.
 It is used to control what to log and what to skip.
+.Pp
+.Fn clog_version
+gets the current version of the library at run time.
 .Pp
 All logging functions use the format as defined by
 .Xr printf 3 .
