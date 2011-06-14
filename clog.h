@@ -39,8 +39,8 @@
 /* versioning */
 #define CLOG_VERSION_MAJOR	0
 #define CLOG_VERSION_MINOR	3
-#define CLOG_VERSION_PATCH	2
-#define CLOG_VERSION		"0.3.2"
+#define CLOG_VERSION_PATCH	3	
+#define CLOG_VERSION		"0.3.3"
 
 void	clog_version(int *major, int *minor, int *patch);
 
@@ -48,6 +48,7 @@ void	clog_version(int *major, int *minor, int *patch);
 #define CLOG_F_FILE		(1<<0)
 #define CLOG_F_FUNC		(1<<1)
 #define CLOG_F_LINE		(1<<2)
+#define CLOG_F_FILOG		(1<<24)
 #define CLOG_F_PID		(1<<25)
 #define CLOG_F_DATE		(1<<26)
 #define CLOG_F_DTIME		(1<<27)
@@ -59,7 +60,8 @@ void	clog_version(int *major, int *minor, int *patch);
 #define CLOG_F_ALLFLAGS							\
 	(CLOG_F_FILE | CLOG_F_FUNC | CLOG_F_LINE |			\
 	CLOG_F_PID | CLOG_F_DATE | CLOG_F_DTIME |			\
-	CLOG_F_STDERR | CLOG_F_SYSLOG | CLOG_F_ENABLE | CLOG_F_DBGENABLE)
+	CLOG_F_FILOG | CLOG_F_STDERR | CLOG_F_SYSLOG |			\
+	CLOG_F_ENABLE | CLOG_F_DBGENABLE)
 
 int	clog_set_flags(uint32_t);
 void	clog_set_mask(uint64_t);

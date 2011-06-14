@@ -31,6 +31,16 @@ static int		clog_initialized;
 static uint64_t		clog_ext_mask;
 static uint32_t		clog_flags;
 static struct timeval	clog_start_of_day;
+static char		clog_logfile[PATH_MAX] = "";
+
+int
+clog_set_logfile(const char *logfile)
+{
+	if (strlcpy(clog_logfile, logfile, sizeof(clog_logfile)) >=
+		sizeof(clog_logfile))
+		return (1);
+	return (0);	 
+}
 
 void
 clog_version(int *major, int *minor, int *patch)
@@ -69,6 +79,9 @@ clog_set_flags(uint32_t f)
 	if ((f & ~CLOG_F_ALLFLAGS) != 0)
 		return (1);
 
+	if ((f & CLOG_F_FILOG) != 0 && clog_logfile[0] == '\0')
+		return (1);
+
 	if ((f & CLOG_F_SYSLOG) != (clog_flags & CLOG_F_SYSLOG)) {
 		/* syslog toggle */
 		if ((clog_flags & CLOG_F_SYSLOG))
@@ -100,7 +113,8 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	int			got_some = 0, free_pi = 0;
 	struct timeval		now, elapsed;
 	time_t			tnow;
-	va_list			sap;
+	va_list			fap, sap;
+	FILE			*stream;
 
 	delta[0] = '\0';
 	if ((CLOG_F_DTIME & clog_flags) != 0) {
@@ -169,6 +183,15 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	}
 
 	va_copy(sap, ap);
+	va_copy(fap, ap);
+
+	if ((CLOG_F_FILOG & clog_flags) != 0) {
+		stream = fopen(clog_logfile, "a");
+		if (stream) {
+			vfprintf(stream, s, fap);
+			fclose(stream);
+		}
+	}
 
 	if ((CLOG_F_STDERR & clog_flags) != 0) {
 		vfprintf(stderr, s, ap);
