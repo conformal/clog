@@ -20,6 +20,7 @@
 #include "clog.h"
 
 #include <inttypes.h>
+#include <limits.h>
 #include <time.h>
 
 static const char *cvstag = "$clog$";
