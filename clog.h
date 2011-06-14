@@ -39,8 +39,8 @@
 /* versioning */
 #define CLOG_VERSION_MAJOR	0
 #define CLOG_VERSION_MINOR	3
-#define CLOG_VERSION_PATCH	3
-#define CLOG_VERSION		"0.3.3"
+#define CLOG_VERSION_PATCH	4
+#define CLOG_VERSION		"0.3.4"
 
 void	clog_version(int *major, int *minor, int *patch);
 
@@ -64,6 +64,7 @@ void	clog_version(int *major, int *minor, int *patch);
 	CLOG_F_ENABLE | CLOG_F_DBGENABLE)
 
 int	clog_set_flags(uint32_t);
+int	clog_set_logfile(const char *);
 void	clog_set_mask(uint64_t);
 void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
 	    const char *, ...) __attribute__((__format__ (printf, 7, 8)));
