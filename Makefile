@@ -37,7 +37,7 @@ MLINKS+=clog.3 CABORTX.3
 MLINKS+=clog.3 CNABORT.3
 MLINKS+=clog.3 CABORT.3
 
-CLEANFILES+=	clog.cat3
+CLEANFILES+=clog.cat3
 CFLAGS+= -Wall -Werror
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
 #LDADD+= 
