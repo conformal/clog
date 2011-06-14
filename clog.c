@@ -40,7 +40,7 @@ clog_set_logfile(const char *logfile)
 	if (strlcpy(clog_logfile, logfile, sizeof(clog_logfile)) >=
 		sizeof(clog_logfile))
 		return (1);
-	return (0);	 
+	return (0);
 }
 
 void
