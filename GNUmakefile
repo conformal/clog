@@ -29,6 +29,7 @@ AR ?= ar
 CC ?= gcc
 INSTALL ?= install
 LN ?= ln
+LNFORCE ?= -f
 LNFLAGS ?= -sf
 MKDIR ?= mkdir
 RM ?= rm -f
@@ -123,8 +124,8 @@ install:
 			1) echo "Warning: Unbalanced MLINK: $$1"; break;; \
 		esac; \
 		page=$$1; shift; link=$$1; shift; \
-		echo $(LN) $(LNFLAGS) $$page $$link; \
-		$(LN) $(LNFLAGS) $$page $$link; \
+		echo $(LN) $(LNFORCE) $$page $$link; \
+		$(LN) $(LNFORCE) $$page $$link; \
 	done
 	
 uninstall:
