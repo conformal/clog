@@ -11,6 +11,7 @@ LOCALBASE ?= /usr/local
 BINDIR ?= ${LOCALBASE}/bin
 LIBDIR ?= ${LOCALBASE}/lib
 INCDIR ?= ${LOCALBASE}/include
+MANDIR ?= $(LOCALBASE)/share/man
 
 # Use obj directory if it exists.
 OBJPREFIX ?= obj/
@@ -44,12 +45,36 @@ SHARED_OBJ_EXT ?= o
 LIB.NAME = clog
 LIB.SRCS = clog.c
 LIB.HEADERS = clog.h
+LIB.MANPAGES = clog.3
+LIB.MLINKS  = clog.3 clog_version.3
+LIB.MLINKS += clog.3 clog_init.3
+LIB.MLINKS += clog.3 clog_set_flags.3
+LIB.MLINKS += clog.3 clog_set_logfile.3
+LIB.MLINKS += clog.3 clog_set_mask.3
+LIB.MLINKS += clog.3 CNINFO.3
+LIB.MLINKS += clog.3 CINFO.3
+LIB.MLINKS += clog.3 CNDBG.3
+LIB.MLINKS += clog.3 CDBG.3
+LIB.MLINKS += clog.3 CNWARNX.3
+LIB.MLINKS += clog.3 CWARNX.3
+LIB.MLINKS += clog.3 CNWARN.3
+LIB.MLINKS += clog.3 CWARN.3
+LIB.MLINKS += clog.3 CNFATALX.3
+LIB.MLINKS += clog.3 CFATALX.3
+LIB.MLINKS += clog.3 CNFATAL.3
+LIB.MLINKS += clog.3 CFATAL.3
+LIB.MLINKS += clog.3 CNABORTX.3
+LIB.MLINKS += clog.3 CABORTX.3
+LIB.MLINKS += clog.3 CNABORT.3
+LIB.MLINKS += clog.3 CABORT.3
 LIB.OBJS = $(addprefix $(OBJPREFIX), $(LIB.SRCS:.c=.o))
 LIB.SOBJS = $(addprefix $(OBJPREFIX), $(LIB.SRCS:.c=.$(SHARED_OBJ_EXT)))
 LIB.DEPS = $(addsuffix .depend, $(LIB.OBJS))
 ifneq "$(LIB.OBJS)" "$(LIB.SOBJS)"
 	LIB.DEPS += $(addsuffix .depend, $(LIB.SOBJS))
 endif
+LIB.MDIRS = $(foreach page, $(LIB.MANPAGES), $(subst ., man, $(suffix $(page)))) 
+LIB.MLINKS := $(foreach page, $(LIB.MLINKS), $(subst ., man, $(suffix $(page)))/$(page)) 
 LIB.LDFLAGS = $(LDFLAGS.EXTRA) $(LDFLAGS) 
 
 all: $(OBJPREFIX)$(LIB.SHARED) $(OBJPREFIX)$(LIB.STATIC)
@@ -79,18 +104,49 @@ depend:
 	@echo "Dependencies are automatically generated.  This target is not necessary."	
 
 install:
+	$(INSTALL) -m 0755 -d $(LIBDIR)/
 	$(INSTALL) -m 0644 $(OBJPREFIX)$(LIB.SHARED) $(LIBDIR)/
 	$(LN) $(LNFLAGS) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
 	$(LN) $(LNFLAGS) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 	$(INSTALL) -m 0644 $(OBJPREFIX)$(LIB.STATIC) $(LIBDIR)/
+	$(INSTALL) -m 0755 -d $(INCDIR)/
 	$(INSTALL) -m 0644 $(LIB.HEADERS) $(INCDIR)/
+	$(INSTALL) -m 0755 -d $(addprefix $(MANDIR)/, $(LIB.MDIRS))
+	$(foreach page, $(LIB.MANPAGES), \
+		$(INSTALL) -m 0444 $(page) $(addprefix $(MANDIR)/, \
+		$(subst ., man, $(suffix $(page))))/; \
+	)
+	@set $(addprefix $(MANDIR)/, $(LIB.MLINKS)); \
+	while : ; do \
+		case $$# in \
+			0) break;; \
+			1) echo "Warning: Unbalanced MLINK: $$1"; break;; \
+		esac; \
+		page=$$1; shift; link=$$1; shift; \
+		echo $(LN) $(LNFLAGS) $$page $$link; \
+		$(LN) $(LNFLAGS) $$page $$link; \
+	done
 	
 uninstall:
 	$(RM) $(LIBDIR)/$(LIB.DEVLNK)
 	$(RM) $(LIBDIR)/$(LIB.SONAME)
 	$(RM) $(LIBDIR)/$(LIB.SHARED)
 	$(RM) $(LIBDIR)/$(LIB.STATIC)
-	(cd $(INCDIR)/ && $(RM) $(LIB.HEADERS))
+	$(RM) $(addprefix $(INCDIR)/, $(LIB.HEADERS))
+	@set $(addprefix $(MANDIR)/, $(LIB.MLINKS)); \
+	while : ; do \
+		case $$# in \
+			0) break;; \
+			1) echo "Warning: Unbalanced MLINK: $$1"; break;; \
+		esac; \
+		page=$$1; shift; link=$$1; shift; \
+		echo $(RM) $$link; \
+		$(RM) $$link; \
+	done
+	$(foreach page, $(LIB.MANPAGES), \
+		$(RM) $(addprefix $(MANDIR)/, \
+		$(subst ., man, $(suffix $(page))))/$(page); \
+	)
 	
 clean:
 	$(RM) $(LIB.SOBJS)
