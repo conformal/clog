@@ -44,8 +44,8 @@ Summary: Libraries and header files to develop applications using clog
 Group: Development/Libraries
 
 %description devel
-The clog-devel package contains the libraries, include files, and documentation
-to develop applications with clog.
+This package contains the libraries, include files, and documentation to
+develop applications with clog.
 
 %files devel
 %defattr(-,root,root)
