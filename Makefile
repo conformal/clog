@@ -42,22 +42,27 @@ CFLAGS+= -Wall -Werror
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
 #LDADD+= 
 
+beforeinstall:
+	${INSTALL} -m 0755 -o ${LIBOWN} -g ${LIBGRP} -d ${DESTDIR}${LIBDIR}/
+	${INSTALL} -m 0755 -o ${BINOWN} -g ${BINGRP} -d ${DESTDIR}${INCDIR}/
+	${INSTALL} -m 0755 -o ${MANOWN} -g ${MANGRP} -d ${DESTDIR}${MANDIR}3/
+
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
-	cmp -s $$i ${DESTDIR}${LOCALBASE}/include/$$i || \
-	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${LOCALBASE}/include; \
-	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${LOCALBASE}/include;\
+	cmp -s $$i ${DESTDIR}${INCDIR}/$$i || \
+	${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${INCDIR}; \
+	echo ${INSTALL} ${INSTALL_COPY} -m 444 -o $(BINOWN) -g $(BINGRP) $$i ${DESTDIR}${INCDIR};\
 	done
 
 uninstall:
 	@for i in $(HDRS); do \
-	echo rm -f ${INCDIR}/$$i ;\
-	rm -f ${INCDIR}/$$i; \
+	echo rm -f ${DESTDIR}${INCDIR}/$$i ;\
+	rm -f ${DESTDIR}${INCDIR}/$$i; \
 	done
 
 	@for i in $(_LIBS); do \
-	echo rm -f ${LIBDIR}/$$i ;\
-	rm -f ${LIBDIR}/$$i; \
+	echo rm -f ${DESTDIR}${LIBDIR}/$$i ;\
+	rm -f ${DESTDIR}${LIBDIR}/$$i; \
 	done
 # XXX: Remove man pages
 
