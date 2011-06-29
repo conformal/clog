@@ -1,0 +1,30 @@
+Source: clog
+Priority: optional
+Maintainer: Conformal Systems <package-discuss@conformal.com>
+Build-Depends: debhelper (>= 7), libc6-dev, locales
+Standards-Version: 3.8.3
+Section: libs
+Homepage: http://opensource.conformal.com/wiki/clog
+
+Package: libclog-dev
+Section: libdevel
+Architecture: any
+Depends: libclog (= ${binary:Version})
+Description: Library that provides various logging services - development
+ This package contains the libraries, include files, and documentation
+ to develop applications with clog.
+ clog (Copious Logger) is a library that provides various logging services.
+ It can be used to log information to syslog or stderr at various levels of
+ verboseness. The user can define his/her own debug/verbosity flags to,
+ at run-time, determine how verbose an application or daemon is.
+
+Package: libclog
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Library that provides various logging services - runtime
+ This package contains the runtime, shared library of clog.
+ clog (Copious Logger) is a library that provides various logging services.
+ It can be used to log information to syslog or stderr at various levels of
+ verboseness. The user can define his/her own debug/verbosity flags to,
+ at run-time, determine how verbose an application or daemon is.
