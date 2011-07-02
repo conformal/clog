@@ -28,7 +28,7 @@ at run-time, determine how verbose an application or daemon is.
 make
 
 %install
-make install LOCALBASE=$RPM_BUILD_ROOT/usr/local
+make install DESTDIR=$RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 
