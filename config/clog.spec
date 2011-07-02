@@ -13,7 +13,7 @@ Group: 		System Environment/Libraries
 URL:		http://opensource.conformal.com/wiki/clog
 Source: 	%{name}-%{version}.tar.gz
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
-Prefix: 	/usr/local
+Prefix: 	/usr
 
 %description
 clog (Copious Logger) is a library that provides various logging services.
@@ -28,7 +28,7 @@ at run-time, determine how verbose an application or daemon is.
 make
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT LOCALBASE=/usr
 
 %post -p /sbin/ldconfig
 
@@ -36,7 +36,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-/usr/local/lib/libclog.so.*
+/usr/lib/libclog.so.*
 
 
 %package devel
@@ -49,10 +49,10 @@ develop applications with clog.
 
 %files devel
 %defattr(-,root,root)
-%doc /usr/local/share/man/man?/*
-/usr/local/include/clog.h
-/usr/local/lib/libclog.so
-/usr/local/lib/libclog.a
+%doc /usr/share/man/man?/*
+/usr/include/clog.h
+/usr/lib/libclog.so
+/usr/lib/libclog.a
 
 %changelog
 * Tue Jun 21 2011 - davec 0.3.4-1
