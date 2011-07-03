@@ -42,6 +42,7 @@ make install DESTDIR=$RPM_BUILD_ROOT LOCALBASE=/usr
 %package devel
 Summary: Libraries and header files to develop applications using clog
 Group: Development/Libraries
+Requires: clens-devel >= 0.0.5
 
 %description devel
 This package contains the libraries, include files, and documentation to
