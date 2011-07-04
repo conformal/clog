@@ -128,7 +128,7 @@ install:
 		echo $(LN) $(LNFORCE) $$page $$link; \
 		$(LN) $(LNFORCE) $$page $$link; \
 	done
-	
+
 uninstall:
 	$(RM) $(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)
 	$(RM) $(DESTDIR)$(LIBDIR)/$(LIB.SONAME)
@@ -149,7 +149,7 @@ uninstall:
 		$(RM) $(addprefix $(DESTDIR)$(MANDIR)/, \
 		$(subst ., man, $(suffix $(page))))/$(page); \
 	)
-	
+
 clean:
 	$(RM) $(LIB.SOBJS)
 	$(RM) $(OBJPREFIX)$(LIB.SHARED)
