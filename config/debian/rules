@@ -13,4 +13,4 @@ export DH_VERBOSE=1
 	dh  $@
 
 override_dh_auto_install:
-	dh_auto_install -- LOCALBASE=/usr	
+	dh_auto_install -- LOCALBASE=/usr
