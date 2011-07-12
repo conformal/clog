@@ -1,6 +1,6 @@
 Source: clog
 Priority: optional
-Maintainer: Conformal Systems <package-discuss@conformal.com>
+Maintainer: Conformal Systems LLC <package-discuss@conformal.com>
 Build-Depends: debhelper (>= 7), libc6-dev, locales
 Standards-Version: 3.8.3
 Section: libs

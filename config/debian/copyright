@@ -1,12 +1,12 @@
 This work was packaged for Debian by:
 
-    Conformal Systems <package-discuss@conformal.com> on Mon, 27 Jun 2011 17:20:38 -0500
+    Conformal Systems LLC <package-discuss@conformal.com> on Mon, 27 Jun 2011 17:20:38 -0500
 
 It was downloaded from http://opensource.conformal.com/wiki/clog
 
 Upstream Author(s):
 
-    Conformal Systems <package-discuss@conformal.com>
+    Conformal Systems LLC <info@conformal.com>
 
 Copyright:
 
@@ -31,5 +31,5 @@ License:
 
 The Debian packaging is:
 
-    Copyright (C) 2011 Conformal Systems <package-discuss@conformal.com> 
+    Copyright (C) 2011 Conformal Systems LLC <package-discuss@conformal.com> 
     and is licensed under the ISC license.
