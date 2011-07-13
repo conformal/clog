@@ -9,7 +9,7 @@ Homepage: http://opensource.conformal.com/wiki/clog
 Package: libclog-dev
 Section: libdevel
 Architecture: any
-Depends: libclog2 (= ${binary:Version})
+Depends: libclens-dev (>= 0.0.5), libclog2 (= ${binary:Version})
 Description: Library that provides various logging services - development
  This package contains the libraries, include files, and documentation
  to develop applications with clog.
