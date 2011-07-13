@@ -9,7 +9,7 @@ Homepage: http://opensource.conformal.com/wiki/clog
 Package: libclog-dev
 Section: libdevel
 Architecture: any
-Depends: libclog (= ${binary:Version})
+Depends: libclog2 (= ${binary:Version})
 Description: Library that provides various logging services - development
  This package contains the libraries, include files, and documentation
  to develop applications with clog.
@@ -18,7 +18,7 @@ Description: Library that provides various logging services - development
  verboseness. The user can define his/her own debug/verbosity flags to,
  at run-time, determine how verbose an application or daemon is.
 
-Package: libclog
+Package: libclog2
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
