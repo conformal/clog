@@ -1,3 +1,10 @@
+clog (0.3.5-1) unstable; urgency=low
+
+  * Add logic to install man pages
+  * Don't link against clens directly from library
+
+ -- Conformal Systems LLC <package-discuss@conformal.com>  Mon, 26 Jul 2011 17:21:26 -0500
+
 clog (0.3.4-1) unstable; urgency=low
 
   * Initial release

@@ -39,8 +39,8 @@
 /* versioning */
 #define CLOG_VERSION_MAJOR	0
 #define CLOG_VERSION_MINOR	3
-#define CLOG_VERSION_PATCH	4
-#define CLOG_VERSION		"0.3.4"
+#define CLOG_VERSION_PATCH	5
+#define CLOG_VERSION		"0.3.5"
 
 void	clog_version(int *major, int *minor, int *patch);
 

@@ -1,7 +1,7 @@
 # $clog$
 
 %define name		clog
-%define version		0.3.4
+%define version		0.3.5
 %define release		1
 
 Name: 		%{name}
@@ -56,5 +56,8 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Tue Jul 26 2011 - davec 0.3.5-1
+- Add logic to install man pages
+- Don't link against clens directly from library
 * Tue Jun 21 2011 - davec 0.3.4-1
 - Create
