@@ -132,7 +132,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	if ((CLOG_F_DATE & clog_flags) != 0) {
 		time(&tnow);
 		ts = ctime(&tnow) + 4;
-		ts[12] = '\0';
+		ts[15] = '\0';
 		if ((CLOG_F_DTIME & clog_flags) == 0)
 			ts2 = ": ";
 		else
