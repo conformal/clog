@@ -69,26 +69,28 @@ void	clog_set_mask(uint64_t);
 void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
 	    const char *, ...) __attribute__((__format__ (printf, 7, 8)));
 
-/* no errno */
+#define CEMERG(b...)		do { clog_dbg_internal(LOG_EMERG, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CEMERGX(b...)		do { clog_dbg_internal(LOG_EMERG, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CALERT(b...)		do { clog_dbg_internal(LOG_ALERT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CALERTX(b...)		do { clog_dbg_internal(LOG_ALERT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CCRIT(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CCRITX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CERR(b...)		do { clog_dbg_internal(LOG_ERR, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CERRX(b...)		do { clog_dbg_internal(LOG_ERR, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CWARN(b...)		do { clog_dbg_internal(LOG_WARNING, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNWARN(a, b...)		do { clog_dbg_internal(LOG_WARNING, 1, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CWARNX(b...)		do { clog_dbg_internal(LOG_WARNING, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNWARNX(a, b...)	do { clog_dbg_internal(LOG_WARNING, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNNOTICE(a, b...)	do { clog_dbg_internal(LOG_NOTICE, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
+#define CNOTICE(b...)		do { clog_dbg_internal(LOG_NOTICE, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
 #define CNINFO(a, b...)		do { clog_dbg_internal(LOG_INFO, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
 #define CINFO(b...)		do { clog_dbg_internal(LOG_INFO, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
 #define CNDBG(a, b...)		do { clog_dbg_internal(LOG_DEBUG, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
 #define CDBG(b...)		do { clog_dbg_internal(LOG_DEBUG, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-
-/* errno */
-#define CNWARNX(a, b...)	do { clog_dbg_internal(LOG_WARNING, 0, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-#define CWARNX(b...)		do { clog_dbg_internal(LOG_WARNING, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-#define CNWARN(a, b...)		do { clog_dbg_internal(LOG_WARNING, 1, a, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-#define CWARN(b...)		do { clog_dbg_internal(LOG_WARNING, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
-
-#define CNFATALX(a, b...)	do { clog_dbg_internal(LOG_CRIT, 0, a, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
-#define CFATALX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
-#define CNFATAL(a, b...)	do { clog_dbg_internal(LOG_CRIT, 1, a, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
-#define CFATAL(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
-#define CNABORTX(a, b...)	do { clog_dbg_internal(LOG_CRIT, 0, a, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
-#define CABORTX(b...)		do { clog_dbg_internal(LOG_CRIT, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
-#define CNABORT(a, b...)	do { clog_dbg_internal(LOG_CRIT, 1, a, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
-#define CABORT(b...)		do { clog_dbg_internal(LOG_CRIT, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
+#define CFATAL(b...)		do { clog_dbg_internal(LOG_EMERG, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CFATALX(b...)		do { clog_dbg_internal(LOG_EMERG, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); exit(1); } while (0)
+#define CABORT(b...)		do { clog_dbg_internal(LOG_EMERG, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
+#define CABORTX(b...)		do { clog_dbg_internal(LOG_EMERG, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); abort(); } while (0)
 
 /* old interface */
 void		 clog_init(int);

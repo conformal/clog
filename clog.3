@@ -33,37 +33,49 @@
 .Ft void
 .Fn clog_version "int *major" "int *minor" "int *patch"
 .Ft void
-.Fn CNINFO "u_int64_t mask" "const char *format" "..."
+.Fn CEMERG "const char *format" "..."
 .Ft void
-.Fn CINFO "const char *format" "..."
+.Fn CEMERGX "const char *format" "..."
 .Ft void
-.Fn CNDBG "u_int64_t mask" "const char *format" "..."
+.Fn CALERT "const char *format" "..."
 .Ft void
-.Fn CDBG "const char *format" "..."
+.Fn CALERTX "const char *format" "..."
 .Ft void
-.Fn CNWARNX "u_int64_t mask" "const char *format" "..."
+.Fn CCRIT "const char *format" "..."
+.Ft void
+.Fn CCRITX "const char *format" "..."
+.Ft void
+.Fn CERR "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CERRX "const char *format" "..."
+.Ft void
+.Fn CWARN "u_int64_t mask" "const char *format" "..."
 .Ft void
 .Fn CWARNX "const char *format" "..."
 .Ft void
 .Fn CNWARN "u_int64_t mask" "const char *format" "..."
 .Ft void
-.Fn CWARN "const char *format" "..."
+.Fn CNWARNX "const char *format" "..."
 .Ft void
-.Fn CNFATALX "u_int64_t mask" "const char *format" "..."
+.Fn CNOTICE "u_int64_t mask" "const char *format" "..."
 .Ft void
-.Fn CFATALX "const char *format" "..."
+.Fn CNNOTICE "const char *format" "..."
 .Ft void
-.Fn CNFATAL "u_int64_t mask" "const char *format" "..."
+.Fn CINFO "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CNINFO "const char *format" "..."
+.Ft void
+.Fn CDBG "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CNDBG "const char *format" "..."
 .Ft void
 .Fn CFATAL "const char *format" "..."
 .Ft void
-.Fn CNABORTX "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CABORTX "const char *format" "..."
-.Ft void
-.Fn CNABORT "u_int64_t mask" "const char *format" "..."
+.Fn CFATALX "const char *format" "..."
 .Ft void
 .Fn CABORT "const char *format" "..."
+.Ft void
+.Fn CABORTX "const char *format" "..."
 .Sh DESCRIPTION
 .Fn clog_init
 prepares the library for first use.
@@ -141,70 +153,66 @@ All logging functions use the format as defined by
 The
 .Fa N
 in the name of the logging functions designates the use of a mask.
-.Pp
-.Fn CNINFO
-and
-.Fn CINFO
-log an informational message.
-If logging is enabled and not masked the provided message will always be logged.
-.Pp
-.Fn CNDBG
-.Fn CDBG
-log a debug message.  Both
-.Fa CLOG_F_ENABLED
-and 
-.Fa CLOG_F_DBGENABLE
-must be set for the message to be logged.
-.Pp
-.Fn CNWARNX
-.Fn CWARNX
-.Fn CNWARN
-.Fn CWARN
-are functionally equivalent to the
-.Xr warn 3
-functions.
-The functions with an
-.Fa X
-in their name suppress
-.Xr strerror 3
-output.
-.Pp
-.Fn CNFATALX
-.Fn CFATALX
-.Fn CNFATAL
+The functions for logging important messages (
+.Fn CEMERG ,
+.Fn CALERT ,
+.Fn CCRIT ,
+.Fn CERR
 .Fn CFATAL
-are functionally equivalent to the
-.Xr err 3
-functions.
-The functions with an
-.Fa X
-in their name suppress
-.Xr strerror 3
-output.
-These functions will terminate the program using
-.Xr exit 3
-with a return value of 1.
-.Pp
-.Fn CNABORTX
-.Fn CABORTX
-.Fn CNABORT
+and
 .Fn CABORT
-are functionally similar to the
-.Xr err 3
-functions.
+) do not have masked variants since they are intended only for important
+messages which should require no masking.
+.Pp
+.Fn CDBG ,
+.Fn CINFO ,
+.Fn CNOTICE ,
+.Fn CWARN ,
+.Fn CERR ,
+.Fn CCRIT ,
+.Fn CALERT ,
+.Fn CEMERG
+(and their masked counterparts where present) will log informational
+messages with severities corresponding to the well known
+.Xr syslog 3
+levels if the
+.Fa CLOG_F_ENABLED
+flag is present and they are unmasked.
+The
+.Fn CDBG
+family of functions additionally require the
+.Fa CLOG_F_DBGENABLE
+flag to be set.
+.Pp
+.Fn CFATALX
+and
+.Fn CFATAL
+terminate the program using
+.Xr exit 3
+with a non-zero return value.
+.Pp
+.Fn CABORTX
+and
+.Fn CABORT
+terminate the program using
+.Xr abort 3
+.Pp
 The functions with an
 .Fa X
 in their name suppress
 .Xr strerror 3
-output.
-These functions will terminate the program using
-.Xr abort 3 .
+output, and are functionally equivalent to the
+.Xr err 3
+and
+.Xr warn 3
+family of functions.
 .Pp
 .Sh SEE ALSO
 .Xr printf 3
 .Xr ctime 3
 .Xr syslog 3
 .Xr err 3
+.Xr warn 3 
 .Sh HISTORY
 .An -nosplit
 .Nm
