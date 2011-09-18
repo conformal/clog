@@ -1,4 +1,3 @@
-/* $clog$ */
 /*
  * Copyright (c) 2009, 2010 Marco Peereboom <marco@peereboom.us>
  *

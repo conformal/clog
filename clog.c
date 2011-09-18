@@ -1,4 +1,3 @@
-/* $clog$ */
 /* $OpenBSD: log.c,v 1.8 2007/08/22 21:04:30 ckuethe Exp $ */
 /*
  * Copyright (c) 2010 Marco Peereboom <marco@peereboom.us>
@@ -23,7 +22,6 @@
 #include <limits.h>
 #include <time.h>
 
-static const char *cvstag = "$clog$";
 static const char *vertag = "version: " CLOG_VERSION;
 
 extern char		*__progname;
@@ -50,7 +48,6 @@ clog_version(int *major, int *minor, int *patch)
 	*minor = CLOG_VERSION_MINOR;
 	*patch = CLOG_VERSION_PATCH;
 	/* Portable way to avoid unused variable compile warnings */
-	(void) (cvstag);
 	(void) (vertag);
 }
 

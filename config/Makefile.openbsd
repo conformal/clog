@@ -1,4 +1,3 @@
-# $clog$
 
 .ifdef ROFF
 MANDIR= ${LOCALBASE}/man/cat

@@ -1,4 +1,3 @@
-# $clog$
 
 %define name		clog
 %define version		0.3.5
