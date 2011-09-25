@@ -1,0 +1,2 @@
+@comment $OpenBSD$
+lib/libclog_pic.a
