@@ -1,4 +1,3 @@
-
 SYSTEM != uname -s
 .if exists(${.CURDIR}/config/Makefile.$(SYSTEM:L))
 .  include "${.CURDIR}/config/Makefile.$(SYSTEM:L)"
@@ -39,7 +38,7 @@ MLINKS+=clog.3 CABORT.3
 CLEANFILES+=clog.cat3
 CFLAGS+= -Wall -Werror
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
-#LDADD+= 
+#LDADD+=
 
 beforeinstall:
 	${INSTALL} -m 0755 -o ${LIBOWN} -g ${LIBGRP} -d ${DESTDIR}${LIBDIR}/

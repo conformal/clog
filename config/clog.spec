@@ -1,4 +1,3 @@
-
 %define name		clog
 %define version		0.3.5
 %define release		1
