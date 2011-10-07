@@ -84,7 +84,7 @@ This function should be called before any other function is called.
 sets the operational flags for
 .Nm .
 Possible values are:
-.Bl -tag -width "CLOG_F_ENABLED" -offset indent -compact
+.Bl -tag -width "CLOG_F_ENABLE" -offset indent -compact
 .It Cm CLOG_F_FILE
 Log source file name.
 .It Cm CLOG_F_FUNC
@@ -123,7 +123,7 @@ Currently all
 .Nm
 output goes to
 .Fa LOG_DAEMON .
-.It Cm CLOG_F_ENABLED
+.It Cm CLOG_F_ENABLE
 Enable logging.
 .It Cm CLOG_F_DBGENABLE
 Enable debug logging.
@@ -175,7 +175,7 @@ messages which should require no masking.
 messages with severities corresponding to the well known
 .Xr syslog 3
 levels if the
-.Fa CLOG_F_ENABLED
+.Fa CLOG_F_ENABLE
 flag is present and they are unmasked.
 The
 .Fn CDBG
