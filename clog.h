@@ -21,19 +21,9 @@
 #include <clens.h>
 #endif
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <signal.h>
-#include <netdb.h>
+#include <stdint.h>
 #include <syslog.h>
-#include <errno.h>
-#include <stdarg.h>
-
-#include <sys/socket.h>
-#include <sys/time.h>
 
 /* versioning */
 #define CLOG_VERSION_MAJOR	0

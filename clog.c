@@ -18,9 +18,19 @@
 
 #include "clog.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <stdarg.h>
 #include <inttypes.h>
 #include <limits.h>
 #include <time.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 static const char *vertag = "version: " CLOG_VERSION;
 
