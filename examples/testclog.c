@@ -34,7 +34,7 @@ main(int argc, char *argv[])
 
 	CWARNX("OMG WARNING");
 	CWARN("OMG WARNING with errno");
-	CNFATAL(CLOGTEST_F_LEVEL3, "OMG FATAL");
+	CFATAL("OMG FATAL");
 
 	/* not reached */
 	CWARNX("OMG WARNING not reached");
