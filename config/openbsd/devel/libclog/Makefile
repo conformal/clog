@@ -10,7 +10,7 @@ SHARED_LIBS=		clog 1.3
 HOMEPAGE=		http://opensource.conformal.com/wiki/Copious_Logger
 MASTER_SITES=		http://opensource.conformal.com/snapshots/clog/
 
-MAINTAINER =		David Hill <dhill@openbsd.org>
+MAINTAINER=		Conformal Systems LLC <info@conformal.com>
 
 # ISC
 PERMIT_PACKAGE_CDROM=	Yes
