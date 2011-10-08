@@ -10,11 +10,7 @@ lib/libclog_p.a
 @man man/man3/CFATAL.3
 @man man/man3/CFATALX.3
 @man man/man3/CINFO.3
-@man man/man3/CNABORT.3
-@man man/man3/CNABORTX.3
 @man man/man3/CNDBG.3
-@man man/man3/CNFATAL.3
-@man man/man3/CNFATALX.3
 @man man/man3/CNINFO.3
 @man man/man3/CNWARN.3
 @man man/man3/CNWARNX.3
