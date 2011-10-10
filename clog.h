@@ -26,10 +26,14 @@
 #include <syslog.h>
 
 /* versioning */
+#define CLOG_STRINGIFY(x)	#x
+#define CLOG_STR(x)		CLOG_STRINGIFY(x)
 #define CLOG_VERSION_MAJOR	0
 #define CLOG_VERSION_MINOR	3
 #define CLOG_VERSION_PATCH	5
-#define CLOG_VERSION		"0.3.5"
+#define CLOG_VERSION		CLOG_STR(CLOG_VERSION_MAJOR) "." \
+				CLOG_STR(CLOG_VERSION_MINOR) "." \
+				CLOG_STR(CLOG_VERSION_PATCH)
 
 void	clog_version(int *major, int *minor, int *patch);
 
