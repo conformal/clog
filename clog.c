@@ -208,7 +208,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 
 	if ((CLOG_F_SYSLOG & clog_flags) != 0) {
 		if ((CLOG_F_DATE & clog_flags) != 0)
-			sl = s + 13;
+			sl = s + 16;
 		else
 			sl = s;
 
