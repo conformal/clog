@@ -32,7 +32,11 @@
 #include <sys/socket.h>
 #include <netdb.h>
 
+#ifdef BUILDSTR
+static const char *vertag = "version: " CLOG_VERSION " " BUILDSTR;
+#else
 static const char *vertag = "version: " CLOG_VERSION;
+#endif
 
 extern char		*__progname;
 
@@ -51,14 +55,18 @@ clog_set_logfile(const char *logfile)
 	return (0);
 }
 
+const char *
+clog_verstring(void)
+{
+	return (vertag);
+}
+
 void
 clog_version(int *major, int *minor, int *patch)
 {
 	*major = CLOG_VERSION_MAJOR;
 	*minor = CLOG_VERSION_MINOR;
 	*patch = CLOG_VERSION_PATCH;
-	/* Portable way to avoid unused variable compile warnings */
-	(void) (vertag);
 }
 
 void

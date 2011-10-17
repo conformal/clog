@@ -41,9 +41,14 @@ MLINKS+=clog.3 CNWARNX.3
 MLINKS+=clog.3 CWARN.3
 MLINKS+=clog.3 CWARNX.3
 
+BUILDVERSION != sh "${.CURDIR}/buildver.sh"
+
 CLEANFILES+=clog.cat3
 CFLAGS+= -Wall -Werror
 CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+.if !${BUILDVERSION} == ""
+CPPFLAGS+= -DBUILDSTR=\"$(BUILDVERSION)\"
+.endif
 #LDADD+=
 
 beforeinstall:

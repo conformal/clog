@@ -35,7 +35,8 @@
 				CLOG_STR(CLOG_VERSION_MINOR) "." \
 				CLOG_STR(CLOG_VERSION_PATCH)
 
-void	clog_version(int *major, int *minor, int *patch);
+const char	*clog_verstring(void);
+void		 clog_version(int *major, int *minor, int *patch);
 
 
 #define CLOG_F_FILE		(1<<0)
