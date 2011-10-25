@@ -64,9 +64,9 @@
 .Ft void
 .Fn CNINFO "const char *format" "..."
 .Ft void
-.Fn CNOTICE "u_int64_t mask" "const char *format" "..."
-.Ft void
 .Fn CNNOTICE "const char *format" "..."
+.Ft void
+.Fn CNOTICE "u_int64_t mask" "const char *format" "..."
 .Ft void
 .Fn CNWARN "u_int64_t mask" "const char *format" "..."
 .Ft void
@@ -153,24 +153,24 @@ The
 .Fa N
 in the name of the logging functions designates the use of a mask.
 The functions for logging important messages (
-.Fn CEMERG ,
+.Fn CABORT
 .Fn CALERT ,
 .Fn CCRIT ,
+.Fn CEMERG ,
 .Fn CERR
-.Fn CFATAL
 and
-.Fn CABORT
+.Fn CFATAL
 ) do not have masked variants since they are intended only for important
 messages which should require no masking.
 .Pp
+.Fn CALERT ,
+.Fn CCRIT ,
 .Fn CDBG ,
+.Fn CEMERG
+.Fn CERR ,
 .Fn CINFO ,
 .Fn CNOTICE ,
 .Fn CWARN ,
-.Fn CERR ,
-.Fn CCRIT ,
-.Fn CALERT ,
-.Fn CEMERG
 (and their masked counterparts where present) will log informational
 messages with severities corresponding to the well known
 .Xr syslog 3
@@ -183,16 +183,16 @@ family of functions additionally require the
 .Fa CLOG_F_DBGENABLE
 flag to be set.
 .Pp
-.Fn CFATALX
-and
 .Fn CFATAL
+and
+.Fn CFATALX
 terminate the program using
 .Xr exit 3
 with a non-zero return value.
 .Pp
-.Fn CABORTX
-and
 .Fn CABORT
+and
+.Fn CABORTX
 terminate the program using
 .Xr abort 3
 .Pp
