@@ -32,9 +32,9 @@
 .Ft void
 .Fn clog_version "int *major" "int *minor" "int *patch"
 .Ft void
-.Fn CEMERG "const char *format" "..."
+.Fn CABORT "const char *format" "..."
 .Ft void
-.Fn CEMERGX "const char *format" "..."
+.Fn CABORTX "const char *format" "..."
 .Ft void
 .Fn CALERT "const char *format" "..."
 .Ft void
@@ -44,37 +44,37 @@
 .Ft void
 .Fn CCRITX "const char *format" "..."
 .Ft void
+.Fn CDBG "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CEMERG "const char *format" "..."
+.Ft void
+.Fn CEMERGX "const char *format" "..."
+.Ft void
 .Fn CERR "u_int64_t mask" "const char *format" "..."
 .Ft void
 .Fn CERRX "const char *format" "..."
-.Ft void
-.Fn CWARN "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CWARNX "const char *format" "..."
-.Ft void
-.Fn CNWARN "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CNWARNX "const char *format" "..."
-.Ft void
-.Fn CNOTICE "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CNNOTICE "const char *format" "..."
-.Ft void
-.Fn CINFO "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CNINFO "const char *format" "..."
-.Ft void
-.Fn CDBG "u_int64_t mask" "const char *format" "..."
-.Ft void
-.Fn CNDBG "const char *format" "..."
 .Ft void
 .Fn CFATAL "const char *format" "..."
 .Ft void
 .Fn CFATALX "const char *format" "..."
 .Ft void
-.Fn CABORT "const char *format" "..."
+.Fn CINFO "u_int64_t mask" "const char *format" "..."
 .Ft void
-.Fn CABORTX "const char *format" "..."
+.Fn CNDBG "const char *format" "..."
+.Ft void
+.Fn CNINFO "const char *format" "..."
+.Ft void
+.Fn CNOTICE "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CNNOTICE "const char *format" "..."
+.Ft void
+.Fn CNWARN "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CNWARNX "const char *format" "..."
+.Ft void
+.Fn CWARN "u_int64_t mask" "const char *format" "..."
+.Ft void
+.Fn CWARNX "const char *format" "..."
 .Sh DESCRIPTION
 .Fn clog_init
 prepares the library for first use.
