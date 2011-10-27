@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.3.5
+%define version		0.4.0
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,13 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Thu Oct 27 2011 - davec 0.4.0-1
+- Make clog.h self-contained
+- Add addition C<LEVEL> functions to mirror syslog priority levels
+- Modify time output for CLOG_F_DATE to include seconds
+- Several man page updates and corrections
+- Add build versioning
+- Other minor cleanup and bug fixes
 * Tue Jul 26 2011 - davec 0.3.5-1
 - Add logic to install man pages
 - Don't link against clens directly from library
