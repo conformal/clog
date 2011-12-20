@@ -89,6 +89,14 @@ clog_initialize(int log_syslog)
 	clog_initialized = 1;
 }
 
+void
+clog_end(void)
+{
+	if (clog_flags & CLOG_F_SYSLOG)
+		closelog();
+	clog_initialized = 0;
+}
+
 int
 clog_set_flags(uint32_t f)
 {

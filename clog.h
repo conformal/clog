@@ -60,6 +60,7 @@ void		 clog_version(int *major, int *minor, int *patch);
 int	clog_set_flags(uint32_t);
 int	clog_set_logfile(const char *);
 void	clog_set_mask(uint64_t);
+void	clog_end(void);
 void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
 	    const char *, ...) __attribute__((__format__ (printf, 7, 8)));
 

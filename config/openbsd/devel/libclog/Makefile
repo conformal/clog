@@ -5,7 +5,7 @@ COMMENT=		configurable logging library
 DISTNAME=		clog-0.4.0
 PKGNAME=		lib${DISTNAME}
 CATEGORIES=		devel
-SHARED_LIBS=		clog 2.4
+SHARED_LIBS=		clog 2.5
 
 HOMEPAGE=		http://opensource.conformal.com/wiki/Copious_Logger
 MASTER_SITES=		http://opensource.conformal.com/snapshots/clog/
