@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdarg.h>
 #include <syslog.h>
 
 /* versioning */
@@ -61,6 +62,10 @@ int		 clog_set_flags(uint32_t);
 uint32_t	 clog_get_flags(void);
 int		 clog_set_logfile(const char *);
 const char	*clog_get_logfile(void);
+void		 clog_set_log_callback(void (*)(void *, int, int, const char *,
+		    va_list), void *);
+void		 clog_default_log_callback(void *, int, int, const char *,
+		    va_list);
 void		 clog_set_mask(uint64_t);
 uint64_t	 clog_get_mask(void);
 int		 clog_mask_is_set(uint64_t);

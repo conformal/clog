@@ -32,6 +32,8 @@
 .Ft const char *
 .Fn clog_get_logfile "void"
 .Ft void
+.Fn clog_set_log_callback "void (*cb)(void *, int, int, const char *, va_list)" "void *state"
+.Ft void
 .Fn clog_set_mask "uint64_t mask"
 .Ft uint64_t
 .Fn clog_get_mask "void"
@@ -157,6 +159,19 @@ The current debug mask may be fetched with
 .Fn clog_get_mask ,
 alternatively whether a bit is set may be tested with
 .Fn clog_mask_is_set .
+.Pp
+.Fn clog_set_log_callback
+sets an optional logging callback and state pointer that will be used instead
+of internal logging functions to display the message. The callback takes as
+arguments the
+state pointer, current clog flags, message priority (as a
+.Xr syslog 3
+priority), message and va_list of message parameters.
+To restore the default behaviour this function may be called with
+.Fn clog_default_log_callback
+and
+.Va NULL
+as the parameter.
 .Pp
 .Fn clog_version
 gets the current version of the library at run time.

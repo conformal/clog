@@ -45,6 +45,9 @@ static uint64_t		clog_ext_mask;
 static uint32_t		clog_flags;
 static struct timeval	clog_start_of_day;
 static char		clog_logfile[PATH_MAX] = "";
+static void		(*clog_log_callback)(void *, int, int, const char *,
+			    va_list) = clog_default_log_callback;
+static void		*clog_log_state;
 
 int
 clog_set_logfile(const char *logfile)
@@ -150,6 +153,52 @@ clog_mask_is_set(uint64_t bit)
 }
 
 void
+clog_set_log_callback(void (*func)(void *, int, int, const char *, va_list),
+    void *st)
+{
+	clog_log_callback = func;
+	clog_log_state = st;
+	
+}
+
+void
+clog_default_log_callback(void *state, int flags, int pri, const char *message,
+    va_list args)
+{
+	const char		*lmessage;
+	FILE			*stream;
+	va_list			 fargs, largs, sargs;
+
+	if ((CLOG_F_FILOG & flags) != 0) {
+		stream = fopen(clog_logfile, "a");
+		if (stream) {
+			va_copy(fargs, args);
+			vfprintf(stream, message, fargs);
+			fclose(stream);
+		}
+	}
+
+	if ((CLOG_F_STDERR & flags) != 0) {
+		va_copy(sargs, args);
+		vfprintf(stderr, message, sargs);
+		fflush(stderr);
+	}
+
+	if ((CLOG_F_SYSLOG & flags) != 0) {
+		va_copy(largs, args);
+		if ((CLOG_F_DATE & flags) != 0)
+			lmessage = message + 16;
+		else
+			lmessage = message;
+
+		if (clog_initialized == 0)
+			clog_initialize(1);
+
+		vsyslog(pri, lmessage, largs);
+	}
+}
+
+void
 clog_print(int pri, int do_errno, const char *file, const char * func, int line,
     const char *fmt, va_list ap)
 {
@@ -157,12 +206,10 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 	const char		*pi2 = "", *fi2 = "", *fu2 = "", *li2 = "";
 	char			li_buf[16], *start = "", *end = "";
 	char			*s = NULL, *ts = "", *ts2 = "" , delta[32];
-	char			*sl = NULL, *er = "", *er2 = "", *pi = "";
+	char			*er = "", *er2 = "", *pi = "";
 	int			got_some = 0, free_pi = 0;
 	struct timeval		now, elapsed;
 	time_t			tnow;
-	va_list			fap, sap;
-	FILE			*stream;
 
 	delta[0] = '\0';
 	if ((CLOG_F_DTIME & clog_flags) != 0) {
@@ -230,33 +277,7 @@ clog_print(int pri, int do_errno, const char *file, const char * func, int line,
 		abort();
 	}
 
-	va_copy(sap, ap);
-	va_copy(fap, ap);
-
-	if ((CLOG_F_FILOG & clog_flags) != 0) {
-		stream = fopen(clog_logfile, "a");
-		if (stream) {
-			vfprintf(stream, s, fap);
-			fclose(stream);
-		}
-	}
-
-	if ((CLOG_F_STDERR & clog_flags) != 0) {
-		vfprintf(stderr, s, ap);
-		fflush(stderr);
-	}
-
-	if ((CLOG_F_SYSLOG & clog_flags) != 0) {
-		if ((CLOG_F_DATE & clog_flags) != 0)
-			sl = s + 16;
-		else
-			sl = s;
-
-		if (clog_initialized == 0)
-			clog_initialize(1);
-
-		vsyslog(pri, sl, sap);
-	}
+	(*clog_log_callback)(clog_log_state, clog_flags, pri, s, ap);
 
 	free(s);
 	if (free_pi)
