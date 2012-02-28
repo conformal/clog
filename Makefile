@@ -52,9 +52,18 @@ CPPFLAGS+= -DBUILDSTR=\"$(BUILDVERSION)\"
 #LDADD+=
 
 beforeinstall:
-	${INSTALL} -m 0755 -o ${LIBOWN} -g ${LIBGRP} -d ${DESTDIR}${LIBDIR}/
-	${INSTALL} -m 0755 -o ${BINOWN} -g ${BINGRP} -d ${DESTDIR}${INCDIR}/
-	${INSTALL} -m 0755 -o ${MANOWN} -g ${MANGRP} -d ${DESTDIR}${MANDIR}3/
+	@if [ ! -d ${DESTDIR}${LIBDIR} ]; then \
+	echo ${INSTALL} -m 0755 -o ${LIBOWN} -g ${LIBGRP} -d ${DESTDIR}${LIBDIR}/; \
+	${INSTALL} -m 0755 -o ${LIBOWN} -g ${LIBGRP} -d ${DESTDIR}${LIBDIR}/; \
+	fi
+	@if [ ! -d ${DESTDIR}${INCDIR} ]; then \
+	echo ${INSTALL} -m 0755 -o ${BINOWN} -g ${BINGRP} -d ${DESTDIR}${INCDIR}/; \
+	${INSTALL} -m 0755 -o ${BINOWN} -g ${BINGRP} -d ${DESTDIR}${INCDIR}/; \
+	fi
+	@if [ ! -d ${DESTDIR}${MANDIR} ]; then \
+	echo ${INSTALL} -m 0755 -o ${MANOWN} -g ${MANGRP} -d ${DESTDIR}${MANDIR}3/; \
+	${INSTALL} -m 0755 -o ${MANOWN} -g ${MANGRP} -d ${DESTDIR}${MANDIR}3/; \
+	fi
 
 afterinstall:
 	@cd ${.CURDIR}; for i in ${HDRS}; do \
