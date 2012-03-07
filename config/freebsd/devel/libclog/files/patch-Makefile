@@ -1,0 +1,15 @@
+--- Makefile.orig	2011-10-27 17:50:31.000000000 -0500
++++ Makefile	2012-03-06 00:17:47.000000000 -0600
+@@ -4,9 +4,9 @@ SYSTEM != uname -s
+ .endif
+ 
+ LOCALBASE?=/usr/local
+-BINDIR?=${LOCALBASE}/bin
+-LIBDIR?=${LOCALBASE}/lib
+-INCDIR?=${LOCALBASE}/include
++BINDIR=${LOCALBASE}/bin
++LIBDIR=${LOCALBASE}/lib
++INCDIR=${LOCALBASE}/include
+ 
+ #WANTLINT=
+ LIB= clog
