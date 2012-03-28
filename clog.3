@@ -25,10 +25,18 @@
 .Fn clog_init "int no_syslog"
 .Ft int
 .Fn clog_set_flags "uint32_t flags"
+.Ft uint32_t
+.Fn clog_get_flags "void"
 .Ft int
 .Fn clog_set_logfile "const char *logfile"
+.Ft const char *
+.Fn clog_get_logfile "void"
 .Ft void
 .Fn clog_set_mask "uint64_t mask"
+.Ft uint64_t
+.Fn clog_get_mask "void"
+.Ft int
+.Fn clog_mask_is_set "uint64_t bit"
 .Ft void
 .Fn clog_version "int *major" "int *minor" "int *patch"
 .Ft void
@@ -131,6 +139,8 @@ Enable debug logging.
 .Pp
 Only supported flags can be set and this function will return 0 on success and
 1 on failure.
+The currently set flags may be fetched with
+.Fn clog_get_flags .
 .Pp
 .Fn clog_set_logfile
 sets the log file to log to when
@@ -143,6 +153,10 @@ The returned value is 0 on success and 1 on failure.
 sets external debug mask.
 The debug mask must be a bitfield and must be defined by the caller.
 It is used to control what to log and what to skip.
+The current debug mask may be fetched with
+.Fn clog_get_mask ,
+alternatively whether a bit is set may be tested with
+.Fn clog_mask_is_set .
 .Pp
 .Fn clog_version
 gets the current version of the library at run time.

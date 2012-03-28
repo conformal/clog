@@ -56,6 +56,12 @@ clog_set_logfile(const char *logfile)
 }
 
 const char *
+clog_get_logfile(void)
+{
+	return (clog_logfile);
+}
+
+const char *
 clog_verstring(void)
 {
 	return (vertag);
@@ -119,10 +125,28 @@ clog_set_flags(uint32_t f)
 	return (0);
 }
 
+uint32_t
+clog_get_flags(void)
+{
+	return (clog_flags);
+}
+
 void
 clog_set_mask(uint64_t f)
 {
 	clog_ext_mask = f | (1llu<<63);
+}
+
+uint64_t
+clog_get_mask(void)
+{
+	return (clog_ext_mask & ~(1llu<<63));
+}
+
+int
+clog_mask_is_set(uint64_t bit)
+{
+	return (clog_ext_mask & bit);
 }
 
 void

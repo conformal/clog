@@ -57,12 +57,17 @@ void		 clog_version(int *major, int *minor, int *patch);
 	CLOG_F_FILOG | CLOG_F_STDERR | CLOG_F_SYSLOG |			\
 	CLOG_F_ENABLE | CLOG_F_DBGENABLE)
 
-int	clog_set_flags(uint32_t);
-int	clog_set_logfile(const char *);
-void	clog_set_mask(uint64_t);
-void	clog_end(void);
-void	clog_dbg_internal(int, int, uint64_t, const char *, const char *, int,
-	    const char *, ...) __attribute__((__format__ (printf, 7, 8)));
+int		 clog_set_flags(uint32_t);
+uint32_t	 clog_get_flags(void);
+int		 clog_set_logfile(const char *);
+const char	*clog_get_logfile(void);
+void		 clog_set_mask(uint64_t);
+uint64_t	 clog_get_mask(void);
+int		 clog_mask_is_set(uint64_t);
+void		 clog_end(void);
+void		 clog_dbg_internal(int, int, uint64_t, const char *,
+		     const char *, int, const char *, ...)
+		     __attribute__((__format__ (printf, 7, 8)));
 
 #define CEMERG(b...)		do { clog_dbg_internal(LOG_EMERG, 1, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
 #define CEMERGX(b...)		do { clog_dbg_internal(LOG_EMERG, 0, -1llu, __FILE__, __FUNCTION__, __LINE__, b); } while (0)
