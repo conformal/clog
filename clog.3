@@ -24,11 +24,11 @@
 .Ft void
 .Fn clog_init "int no_syslog"
 .Ft int
-.Fn clog_set_flags "u_int32_t flags"
+.Fn clog_set_flags "uint32_t flags"
 .Ft int
 .Fn clog_set_logfile "const char *logfile"
 .Ft void
-.Fn clog_set_mask "u_int64_t mask"
+.Fn clog_set_mask "uint64_t mask"
 .Ft void
 .Fn clog_version "int *major" "int *minor" "int *patch"
 .Ft void
@@ -58,23 +58,23 @@
 .Ft void
 .Fn CINFO "const char *format" "..."
 .Ft void
-.Fn CNINFO "u_int64_t mask"  "const char *format" "..."
+.Fn CNINFO "uint64_t mask"  "const char *format" "..."
 .Ft void
 .Fn CDBG "const char *format" "..."
 .Ft void
-.Fn CNDBG "u_int64_t mask" "const char *format" "..."
+.Fn CNDBG "uint64_t mask" "const char *format" "..."
 .Ft void
 .Fn CNOTICE "const char *format" "..."
 .Ft void
-.Fn CNNOTICE "u_int64_t mask" "const char *format" "..."
+.Fn CNNOTICE "uint64_t mask" "const char *format" "..."
 .Ft void
 .Fn CWARN "const char *format" "..."
 .Ft void
-.Fn CNWARN "u_int64_t mask" "const char *format" "..."
+.Fn CNWARN "uint64_t mask" "const char *format" "..."
 .Ft void
 .Fn CWARNX "const char *format" "..."
 .Ft void
-.Fn CNWARNX "u_int64_t mask" "const char *format" "..."
+.Fn CNWARNX "uint64_t mask" "const char *format" "..."
 .Sh DESCRIPTION
 .Fn clog_init
 prepares the library for first use.
