@@ -5,3 +5,4 @@
 *.a
 *.cat[1-9]
 examples/testclog*
+obj
