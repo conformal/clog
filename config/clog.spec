@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.4.0
+%define version		0.5.0
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,10 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Tue Apr 24 2012 - drahn 0.5.0-1
+- add clog_end() to remove all resources clog has allocated
+- fix CN* (masked) function entries on man page
+- Other minor cleanup and bug fixes
 * Thu Oct 27 2011 - davec 0.4.0-1
 - Make clog.h self-contained
 - Add addition C<LEVEL> functions to mirror syslog priority levels

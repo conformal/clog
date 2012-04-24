@@ -2,7 +2,7 @@
 
 COMMENT=		configurable logging library
 
-DISTNAME=		clog-0.4.0
+DISTNAME=		clog-0.5.0
 PKGNAME=		lib${DISTNAME}
 CATEGORIES=		devel
 SHARED_LIBS=		clog 2.5

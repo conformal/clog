@@ -1,3 +1,11 @@
+clog (0.5.0-1) unstable; urgency=low
+
+  * add clog_end() to remove all resources clog has allocated
+  * fix CN* (masked) function entries on man page
+  * Other minor cleanup and bug fixes
+
+ -- Conformal Systems <package-discuss@conformal.com>  Tue, 24 Apr 2012 10:18:11 -0500
+
 clog (0.4.0-1) unstable; urgency=low
 
   * Make clog.h self-contained
