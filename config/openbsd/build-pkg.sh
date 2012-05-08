@@ -104,7 +104,7 @@ SUDOENV="${SUDOENV} PACKAGE_REPOSITORY=${PACKAGE_REPOSITORY}"
 SUDOENV="${SUDOENV} REVISION=${REVISION}"
 
 (cd ${category}/${port} && rm distinfo && touch distinfo && make makesum)
-(cd ${category}/${port} && ${SUDO} env ${SUDOENV} make)
+(cd ${category}/${port} && env ${SUDOENV} make)
 (cd ${category}/${port} && ${SUDO} env ${SUDOENV} make package install)
 (cd ${category}/${port} && rm -f distinfo && touch distinfo)
 
