@@ -22,7 +22,7 @@ DPADD+= ${.CURDIR}/../libclog.a
 
 SRCS= testclog.c
 COPT+= -O2
-CFLAGS+= -Wall -Werror -ggdb3
+CFLAGS+= -Wall -Werror -g
 LDADD+= -L${LOCALBASE}/lib -lclog
 
 CFLAGS+= -I${.CURDIR}/..
