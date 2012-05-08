@@ -1,3 +1,11 @@
+clog (0.6.0-1) unstable; urgency=low
+
+  * Add functions to get the current mask logfile and flags
+  * Add function to all caller to set the logging callback function
+  * Other minor cleanup and bug fixes
+
+ -- Conformal Systems <package-discuss@conformal.com>  Tue, 08 May 2012 13:36:00 -0500
+
 clog (0.5.0-1) unstable; urgency=low
 
   * add clog_end() to remove all resources clog has allocated

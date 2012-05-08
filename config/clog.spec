@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.5.0
+%define version		0.6.0
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,10 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Tue May 08 2012 - drahn 0.6.0-1
+- Add functions to get the current mask logfile and flags
+- Add function to all caller to set the logging callback function
+- Other minor cleanup and bug fixes
 * Tue Apr 24 2012 - drahn 0.5.0-1
 - add clog_end() to remove all resources clog has allocated
 - fix CN* (masked) function entries on man page
