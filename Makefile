@@ -45,7 +45,7 @@ BUILDVERSION != sh "${.CURDIR}/buildver.sh"
 
 CLEANFILES+=clog.cat3
 CFLAGS+= -Wall -Werror
-CFLAGS+= -ggdb3 -I${.CURDIR} -I${INCDIR}
+CFLAGS+= -g -I${.CURDIR} -I${INCDIR}
 .if !${BUILDVERSION} == ""
 CPPFLAGS+= -DBUILDSTR=\"$(BUILDVERSION)\"
 .endif
