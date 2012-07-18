@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.6.1
+%define version		0.6.2
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,9 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Tue Jul 17 2012 - davec 0.6.2-1
+- Support clang builds
+- Fix non-release build versioning
 * Tue May 08 2012 - drahn 0.6.1-1
 - Unbreak package build
 * Tue May 08 2012 - drahn 0.6.0-1
