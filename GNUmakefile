@@ -45,6 +45,7 @@ WARNFLAGS ?= -Wall -Werror
 DEBUG += -g
 CFLAGS += $(INCFLAGS) $(WARNFLAGS) $(DEBUG)
 LDFLAGS +=
+LDADD += -lbsd
 SHARED_OBJ_EXT ?= o
 
 LIB.NAME = clog
