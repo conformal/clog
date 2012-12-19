@@ -33,9 +33,9 @@
 #include <netdb.h>
 
 #ifdef BUILDSTR
-static const char *vertag = "version: " CLOG_VERSION " " BUILDSTR;
+static const char *vertag = CLOG_VERSION " " BUILDSTR;
 #else
-static const char *vertag = "version: " CLOG_VERSION;
+static const char *vertag = CLOG_VERSION;
 #endif
 
 extern char		*__progname;
@@ -158,7 +158,7 @@ clog_set_log_callback(void (*func)(void *, int, int, const char *, va_list),
 {
 	clog_log_callback = func;
 	clog_log_state = st;
-	
+
 }
 
 void
