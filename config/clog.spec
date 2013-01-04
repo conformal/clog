@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.6.2
+%define version		0.6.3
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,10 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Fri Jan 04 2013 - davec 0.6.3-1
+- Add support for Bitrig
+- Add support for cygwin
+- Remove the 'version: ' prefix from clog_verstring
 * Tue Jul 17 2012 - davec 0.6.2-1
 - Support clang builds
 - Fix non-release build versioning
