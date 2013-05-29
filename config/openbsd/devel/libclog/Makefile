@@ -3,6 +3,7 @@
 COMMENT=		configurable logging library
 
 DISTNAME=		clog-0.6.3
+EPOCH=			0
 PKGNAME=		lib${DISTNAME}
 CATEGORIES=		devel
 SHARED_LIBS=		clog 2.6
@@ -14,11 +15,8 @@ MAINTAINER=		Conformal Systems LLC <info@conformal.com>
 
 # ISC
 PERMIT_PACKAGE_CDROM=	Yes
-PERMIT_PACKAGE_FTP=	Yes
-PERMIT_DISTFILES_CDROM=	Yes
-PERMIT_DISTFILES_FTP=	Yes
 
-NO_REGRESS=		Yes
+NO_TEST=		Yes
 
 FAKE_FLAGS=	MANDIR=${PREFIX}/man/man
 
