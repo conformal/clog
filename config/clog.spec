@@ -1,5 +1,5 @@
 %define name		clog
-%define version		0.6.3
+%define version		0.6.4
 %define release		1
 
 Name: 		%{name}
@@ -54,6 +54,8 @@ develop applications with clog.
 /usr/lib/libclog.a
 
 %changelog
+* Fri May 31 2013 - davec 0.6.4-1
+- Fix OpenBSD port Makefile for modern OpenBSD ports
 * Fri Jan 04 2013 - davec 0.6.3-1
 - Add support for Bitrig
 - Add support for cygwin
