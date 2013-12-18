@@ -1,3 +1,9 @@
 ARFLAGS = crs
+INCFLAGS+= -I /usr/local/include/clens
+
+LDFLAGS.SO = -dynamiclib
 
 LIB.STATIC = lib$(LIB.NAME).a
+LIB.SHARED = lib$(LIB.NAME).dylib
+
+SHARED_OBJ_EXT=os
